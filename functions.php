@@ -3,7 +3,7 @@
 
 function connection(){
   $username='root';
-	$password=$_POST['password'];
+	$password=$_POST['pwd'];
 	$localhost = 'localhost';
 	$db = 'Databases_Project';
 	$conn = mysqli_connect($localhost, $username, $password);
@@ -13,7 +13,12 @@ function connection(){
 	if($db_selected) {echo 'Database selected'.'<BR>';}
 	else { exit("$db not selected");}
 	
-  
+function insert(){
+		
+		
+		
+	}
+	
 }//function connection() 
 
 
