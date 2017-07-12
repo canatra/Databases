@@ -12,7 +12,8 @@ function connection(){
 	$db_selected = mysqli_select_db($conn, $db);
 	if($db_selected) {echo 'Database selected'.'<BR>';}
 	else { exit("$db not selected");}
-	
+	}//function connection() 
+
 function insert($table, $attribute, $values){          
 	//https://stackoverflow.com/questions/10054633/insert-array-into-mysql-database-with-php
 		
@@ -24,7 +25,6 @@ function insert($table, $attribute, $values){
 		
 	}
 	
-}//function connection() 
 
 
 
