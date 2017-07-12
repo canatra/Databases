@@ -13,9 +13,14 @@ function connection(){
 	if($db_selected) {echo 'Database selected'.'<BR>';}
 	else { exit("$db not selected");}
 	
-function insert(){
+function insert($table, $attribute, $values){          
+	//https://stackoverflow.com/questions/10054633/insert-array-into-mysql-database-with-php
 		
-		
+	$columns = implode(", ",array_keys($attributes));
+	$escaped_values =array_map('mysqli_real_escape_string', array_values($attributes));
+	$values  = implode(", ", $escaped_values);
+	$sql = "INSERT INTO $table($columns) VALUES ($values)";
+		//not sure if this works
 		
 	}
 	
