@@ -1,55 +1,43 @@
-<?php 
-//Functions.php will be used to hold the functions that will be called from other scripts: connect, insert,delete, search-->
+<?php
+//Functions.php will be used to hold the functions that will be called from other scripts: connect, insert,delete, search, etc
 
-static $conn;
 
 function connection(){
-
 
 if(!isset($conn)){
 
 	 define('DB_SERVER', 'localhost');
 	 define('DB_USER', 'root');
 	 define('DB_PASSWORD',"{$_POST['pwd']}");
-	 define('DB', 'Databases_Project');
+	 $_SESSION["DB"]= 'Databases_Project';
 
 
 	$conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
-	if($conn) { echo 'Connected <BR>';}
+	if($conn) { $_SESSION["connection"] = $conn;
+		}
 	else{ exit("Unable to connect to DB");}
-	$db_selected = mysqli_select_db($conn, DB);
+	$db_selected = mysqli_select_db($conn, $_SESSION["DB"]);
 	if($db_selected) {echo 'Database selected'.'<BR>';}
-	else { exit("$DB not selected");}
+	else { exit("DB not selected");}
 	}
 
-	if($conn === false){
-	return mysqli_connect_error();
-	}
-	return $conn;
 }//function connection() 
 
-function connectiontest(){
-
-	 if(!isset($conn)){
-
-	$conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
-	
-	}
-	return $conn;
-
-}
 
 
 function insert($table){          
-	 $conn = connectiontest();
+	 $conn = $_SESSION["connection"];
 
 
 //------------------------insert into product table----------------------------
 
+		if (!$conn)
+		   die("connection failed: " .mysli_connect_error());
 		if ($table == "product"){
-		   $catquery = "select cid from category where catname = {$_POST['cat']}";
+		  $catquery = "SELECT cid FROM Category WHERE catname = {$_POST['cat']}";
+		  echo $catquery."<br>";
 		   $result = mysqli_query($conn, $catquery);
-		   
+		   		   
 		   if (!$result){ //if category not found insert into category table
 		      $addCat ="INSERT INTO Category(catname)VALUE ({$_POST['cat']})";
 		      if (mysqli_query($conn, $addCat)){
@@ -69,7 +57,7 @@ function insert($table){
 			echo "unable to insert";
 		}//if($table == "product")
 		
-//------------------------insert into category table------------------------------------		
+//------------------------insert into category table------------------------------------	
 		elseif($table == "category"){
 		$cat = "INSERT INTO Category(catname, Aisle, description) VALUES ({$_POST['catname']}, {$_POST['Aisle']}, {$_POST['description']}";
    		if ( mysqli_query($conn, $cat)){
@@ -111,7 +99,6 @@ function insert($table){
 }
 			    
 	   
-
 
 	   
 
