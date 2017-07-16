@@ -1,30 +1,36 @@
 
 
 <?php
-include 'functions.php';
-include 'main.php';
+include_once('functions.php');
+include_once('header.php');
 
-
-/* if(isset($_POST['product_submit'])){ //check if form was submitted
-  $input = $_POST['pid']; //get input text
-  $message = "Success! You entered: ".$input;
-  echo $message;
-  
-}    */
 
 if(isset($_POST['product_submit'])){ //check if form was submitted
-  $input = $_POST['pid']; //get input text
-  $message = "product insert Success! You entered: ".$input;
-  echo $message;
-  
+    $table = "product";
+ 
 }    
 
-if(isset($_POST['maker_submit'])){ //check if form was submitted
-  $input = $_POST['mid']; //get input text
-  $message = "maker insert Success! You entered: ".$input;
-  echo $message;
-  
+elseif(isset($_POST['category_submit'])){ //check if form was submitted
+  $table = "category";
+ 
 }    
+elseif(isset($_POST['maker_submit'])){ //check if form was submitted
+{
+	$table = "maker";
+
+}
+elseif(isset($_POST['customer_submit'])){ //check if form was submitted
+{
+	$table = "customer";
+
+}
+elseif(isset($_POST['buy_submit'])){ //check if form was submitted
+{
+	$table = "buy";
+
+}
+	 insert($table);
+
 ?>
     
      <p style="font-size:25px; color:lightblue;">Submit your insertion</p>

@@ -12,35 +12,29 @@
 			<option value="carries"> carries </option>
             </select>
 
-<!-- FORM PRODCUCT -->  
+<!-- FORM PRODUCT -->  
 <form name="product" id="product" style="display:none" action="" method="post" onSubmit="alert('insert in a new tuple!')";>
 <h2>form product</h2>
 <ul>
-<li>pid: <input type="text" name="pid"></li>
+<li>product name: <input type="text" name="pname"></li>
 </ul>
 <ul>
-<li>productname: <input type="text" ></li>
+<li>expiration date: <input type="date"  name="expdate" ></li>
 </ul>
 <ul>
-<li>exp_date: <input type="text" ></li>
+<li>cost per unit: <input type="text" name="cost"></li>
 </ul>
 <ul>
-<li>unitcost: <input type="text" ></li>
+<li>minimum quantity: <input type="text" name="threshold""></li>
 </ul>
 <ul>
-<li>min_threshold: <input type="text" ></li>
+<li>quantity: <input type="text" name="quantity"></li>
 </ul>
 <ul>
-<li>quantity: <input type="text" ></li>
+<li>price per unit: <input type="text" name="price"></li>
 </ul>
 <ul>
-<li>unitprice: <input type="text" ></li>
-</ul>
-<ul>
-<li>cid: <input type="text" ></li>
-</ul>
-<ul>
-<li>mid: <input type="text" ></li>
+<li>category: <input type="text" name="cat" ></li>
 </ul>
 <p><input type="submit" name="product_submit"/></p>
 </form>
@@ -49,16 +43,13 @@
 <form name="category" id="category" style="display:none" action="" method="post" onSubmit="alert('insert in a new tuple!')";>
 <h2>form category</h2>
 <ul>
-<li>cid: <input type="text" name="cid"></li>
+<li>categoryname: <input type="text" name="catname"></li>
 </ul>
 <ul>
-<li>categoryname: <input type="text" ></li>
+<li>aisle: <input type="text" name="aisle"></li>
 </ul>
 <ul>
-<li>image: <input type="text" ></li>
-</ul>
-<ul>
-<li>description: <input type="text" ></li>
+<li>description: <input type="text" name="description"></li>
 </ul>
 
 <p><input type="submit" name="category_submit"/></p>
@@ -68,19 +59,16 @@
 <form name="maker" id="maker" style="display:none" action="" method="post" onSubmit="alert('insert in a new tuple!')";>
 <h2>form maker</h2>
 <ul>
-<li>mid: <input type="text" name="mid"></li>
+<li>ma: <input type="text" name="maker"></li>
 </ul>
 <ul>
-<li>makername: <input type="text" ></li>
+<li>address: <input type="text" name="address"></li>
 </ul>
 <ul>
-<li>address: <input type="text" ></li>
+<li>phone: <input type="tel" name="phone"></li>
 </ul>
 <ul>
-<li>phone: <input type="text" ></li>
-</ul>
-<ul>
-<li>email: <input type="text" ></li>
+<li>website: <input type="url" name="website"></li>
 </ul>
 <p><input type="submit" name="maker_submit"/></p>
 </form>
@@ -89,41 +77,35 @@
 <form name="customer" id="customer" style="display:none" action="" method="post" onSubmit="alert('insert in a new tuple!')";>
 <h2>form customer </h2>
 <ul>
-<li>Card_num: <input type="text" ></li>
+<li>customername: <input type="text" name="customername"></li>
 </ul>
 <ul>
-<li>customername: <input type="text" ></li>
+<li>email: <input type="email" name="email"></li>
 </ul>
 <ul>
-<li>email: <input type="text" ></li>
-</ul>
-<ul>
-<li>address: <input type="text" ></li>
+<li>address: <input type="text" name="address"></li>
 </ul>
 <p><input type="submit" name="customer_submit"/></p>
 </form>
 
 <!-- BUY FORM -->
-<form name="buy" id="buy" style="display:none" action="" method="post" onSubmit="alert('insert in a new tuple!')";>
+<form name="Transaction" id="buy" style="display:none" action="" method="post" onSubmit="alert('insert in a new tuple!')";>
 <h2>form buy</h2>
 <ul>
-<li>tid: <input type="text" ></li>
+<li>product: <input type="text" name="product"></li>
+</ul>    <!--search the product table first to get the pid -->
+<ul>
+<li>quantity Sold: <input type="text" name="quantity"></li>
 </ul>
 <ul>
-<li>pid: <input type="text" ></li>
+<li>date: <input type=getdate() name="date"></li>
 </ul>
 <ul>
-<li>quantitySold: <input type="text" ></li>
-</ul>
+<li>store name: <input type="text" name="store"></li>
+</ul>      <!-- search the store table to get storeid -->
 <ul>
-<li>date: <input type="text" ></li>
-</ul>
-<ul>
-<li>storeid: <input type="text" ></li>
-</ul>
-<ul>
-<li>card_num: <input type="text" ></li>
-</ul>
+<li>customer name: <input type="text" name="customer_name"></li>
+</ul>	     <!-- search the customer table for customer id -->
 <p><input type="submit" name="buy_submit"/></p>
 </form>
 
@@ -131,34 +113,28 @@
 <form name="employee" id="employee" style="display:none" action="" method="post" onSubmit="alert('insert in a new tuple!')";>
 <h2>form employee</h2>
 <ul>
-<li>employeeid: <input type="text" ></li>
+<li>employee name: <input type="text" name="ename"></li>
 </ul>
 <ul>
-<li>employeename: <input type="text" ></li>
+<li>store name: <input type="text" name="storename"></li>
+</ul>	  	<!--search store database for storeid -->
+<ul>
+<li>job type: <input type="text" name="job_type"></li>
 </ul>
 <ul>
-<li>storeid: <input type="text" ></li>
+<li>hours per week: <input type="text" name="hoursperweek"></li>
 </ul>
 <ul>
-<li>job_type: <input type="text" ></li>
+<li>wages: <input type="text" name="wages"></li>
 </ul>
 <ul>
-<li>hoursperweek: <input type="text" ></li>
+<li>phone: <input type="tel" name="phone"></li>
 </ul>
 <ul>
-<li>wages: <input type="text" ></li>
+<li>email: <input type="email" name="email"></li>
 </ul>
 <ul>
-<li>phone: <input type="text" ></li>
-</ul>
-<ul>
-<li>email: <input type="text" ></li>
-</ul>
-<ul>
-<li>direct_deposit: <input type="text" ></li>
-</ul>
-<ul>
-<li>SSN: <input type="text" ></li>
+<li>SSN: <input type="text" name="ssn"></li>
 </ul>
 <p><input type="submit" name="employee_submit"/></p>
 </form>
@@ -167,19 +143,16 @@
 <form name="store" id="store" style="display:none" action="" method="post" onSubmit="alert('insert in a new tuple!')";>
 <h2>form store</h2>
 <ul>
-<li>storeid: <input type="text" ></li>
+<li>email: <input type="email" name="email"></li>
 </ul>
 <ul>
-<li>email: <input type="text" ></li>
+<li>store name: <input type="text" name="store"></li>
 </ul>
 <ul>
-<li>storename: <input type="text" ></li>
+<li>location: <input type="text" name="location"></li>
 </ul>
 <ul>
-<li>location: <input type="text" ></li>
-</ul>
-<ul>
-<li>phone: <input type="text" ></li>
+<li>phone: <input type="tel" name="phone"></li>
 </ul>
 <p><input type="submit" name="store_submit"/></p>
 </form>
@@ -188,10 +161,10 @@
 <form name="carries" id="carries" style="display:none" action="" method="post" onSubmit="alert('insert in a new tuple!')";>
 <h2>form carries</h2>
 <ul>
-<li>pid: <input type="text" ></li>
+<li>pid: <input type="text" name="pid"></li>
 </ul>
 <ul>
-<li>storeid: <input type="text" ></li>
+<li>store id: <input type="text" name="storeid"></li>
 </ul>
 <p><input type="submit" name="carries_submit"/></p>
 </form>
