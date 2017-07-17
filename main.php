@@ -1,3 +1,7 @@
+<?php
+session_start();
+   ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +87,7 @@ a{
     <ul><a href="insert.php">INSERT</a></ul>
 	<ul><a href="update.php">UPDATE</a></ul>
 	<ul><a href="delete.php">DELETE</a></ul>
-	<ul><a href="serach.php">SEARCH</a></ul>
+	<ul><a href="search.php">SEARCH</a></ul>
 	
   </div>
 </div></li>
