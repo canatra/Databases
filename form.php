@@ -36,6 +36,9 @@
 <ul>
 <li>category: <input type="text" name="cat" ></li>
 </ul>
+<ul>
+<li>Manufacturer: <input type="text" name="maker"></li>
+</ul>
 <p><input type="submit" name="product_submit"/></p>
 </form>
 
@@ -156,12 +159,12 @@
 
 <!-- CARRIES FORM -->
 <form name="carries" id="carries" style="display:none" action="";>
-<h2>form carries</h2>
+<h2>Carries</h2>
 <ul>
-<li>pid: <input type="text" name="pid"></li>
+<li>Enter the product: <input type="text" name="pname"></li>
 </ul>
 <ul>
-<li>store id: <input type="text" name="storeid"></li>
+<li>Enter the Store that carries the product: <input type="text" name="store"></li>
 </ul>
 <p><input type="submit" name="carries_submit"/></p>
 </form>

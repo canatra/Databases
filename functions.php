@@ -9,7 +9,7 @@ if(!isset($conn)){
 
 	 define('DB_SERVER', 'localhost');
 	 define('DB_USER', 'root');
-	 define('DB_PASSWORD', {$_POST['pwd']}");
+	 define('DB_PASSWORD',
 	 $_SESSION["DB"]= 'Databases_Project';
 
 
@@ -43,16 +43,44 @@ function insert($table){
 		   }//if(!result)		   
 		   
 		   $catrow = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		   $pname = $_POST['pname'];
 
-
-		   $prod = "INSERT INTO product(productname, exp_date, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$_POST['pname']."', '".$_POST['expdate']."', {$_POST['cost']}, {$_POST['quantity']}, {$_POST['threshold']}, {$_POST['price']}, {$catrow['cid']})";
+		   $prod = "INSERT INTO product(productname, exp_date, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$pname."', '".$_POST['expdate']."', {$_POST['cost']}, {$_POST['quantity']}, {$_POST['threshold']}, {$_POST['price']}, {$catrow['cid']})";
 
 		   echo $prod."<br>";
 		   if ( mysqli_query($conn, $prod)){
 		   echo "product insert Success!" ;	       
 		   }else
 			echo "unable to insert";
-		mysqli_close($conn);
+	
+
+
+		$pid = "SELECT pid FROM product where productname ='".$pname."'";
+		$result2 = mysqli_query($conn, $pid);
+		$pidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);	
+		
+		$mid = "SELECT mid FROM makers where Manufacturer ='".$_POST['maker']."'";
+		
+		 $result3 = mysqli_query($conn, $mid);
+		
+		  if (!$result3){//if manufacturer not found insert into manufacturer table
+		      $addMan ="INSERT INTO makers(Manufacturer)VALUE ({$_POST['maker']})";
+		      if (mysqli_query($conn, $addMan)){
+		      	 $result3 = mysqli_query($conn, $mid);
+			 }//if(mysli_query($conn, $mid))			 
+		   }//if(!result3)		   
+		 
+
+		$midrow = mysqli_fetch_array($result3, MYSQLI_ASSOC);	
+			
+		$makes = "INSERT INTO makes(pid, mid) VALUES (".$pidrow['pid'].",".$midrow['mid'].")";
+		
+   		if (mysqli_query($conn, $makes)){
+		   echo "<br>";
+			 }//if(mysli_query($conn, $mid))			 
+		 
+
+
 		}//if($table == "product")
 		
 //------------------------insert into category table------------------------------------	
@@ -165,7 +193,7 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
   }
 	   
 //------------------------------Add a Store ---------------------------
-//store, email, location, phone
+//Adds a new store to the store table
 
   elseif ($table == "store"){
 
@@ -181,11 +209,50 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 
 }
 
+//----------------------------Add to Carries table--------------------
+
+elseif ($table == "carries") {
+
+     $pname = $_POST["pname"];
+     $pidQuery = "select pid from product where productname = '".$pname."'";
+     echo $pidQuery."<br>";
+       $result1 = mysqli_query($conn, $pidQuery);
+
+       if (!$result1){
+        exit("Product does not exist");
+	}
+
+   	$pidrow = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+	$store = $_POST["storename"];
+       $storeidQuery = "select storeid from Store where storename = '".$store."'";
+
+       echo $storeidQuery."<br>";
+       $result2 = mysqli_query($conn, $storeidQuery);
+
+       if (!$result2){
+        exit("store does not exist");
+	}
+
+   	$sidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+
+
+
+     $carries = "INSERT INTO carries(pid, storeid) VALUES (".$pidrow['pid']. ",".$sidrow['storeid'].")";
+     
+   		if ( mysqli_query($conn, $carries)){
+		   echo "Product ".$pname. " added to ".$store."!" ;	       
+		   }else
+			echo "unable to insert";
+
+     
+}
+
+	mysqli_close($conn);
 
 	}//function insert
 	
 
-
+//---------------------Update function--------------------------
 
 
 ?>

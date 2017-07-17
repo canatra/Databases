@@ -36,7 +36,12 @@ elseif(isset($_POST["store_submit"])){
 	$table = "store";
 }
 
+elseif (isset($_POST["carries_submit"])){
 
+echo "here";
+	$table = "carries"; 
+}
+	
 
 	 insert($table);
 
