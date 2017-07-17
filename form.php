@@ -158,7 +158,7 @@
 </form>
 
 <!-- CARRIES FORM -->
-<form name="carries" id="carries" style="display:none" action="";>
+<form name="carries" id="carries" style="display:none" action="" method="post";>
 <h2>Carries</h2>
 <ul>
 <li>Enter the product: <input type="text" name="pname"></li>

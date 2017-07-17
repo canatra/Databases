@@ -61,13 +61,14 @@ function insert($table){
 		$pid = "SELECT pid FROM product where productname ='".$pname."'";
 		$result2 = mysqli_query($conn, $pid);
 		$pidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);	
-		
-		$mid = "SELECT mid FROM makers where Manufacturer ='".$_POST['maker']."'";
+	
+		$maker = $_POST['maker'];	
+		$mid = "SELECT mid FROM makers where Manufacturer ='".$maker."'";
 		
 		 $result3 = mysqli_query($conn, $mid);
 		
-		  if (!$result3){//if manufacturer not found insert into manufacturer table
-		      $addMan ="INSERT INTO makers(Manufacturer)VALUE ({$_POST['maker']})";
+		  if (mysqli_num_rows($result3)== 0){ //if manufacturer not found insert into manufacturer table
+		      $addMan ="INSERT INTO makers(Manufacturer)VALUE ('".$maker."')";
 		      if (mysqli_query($conn, $addMan)){
 		      	 $result3 = mysqli_query($conn, $mid);
 			 }//if(mysli_query($conn, $mid))			 
@@ -130,7 +131,7 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
        $pidQuery = "select pid from product where productname = '".$_POST['product']."'";
        		        $result1 = mysqli_query($conn, $pidQuery);
 
-       if (!$result1){
+       if (mysqli_num_rows($pidQuery)== 0){
         exit("Product does not exist");
 	}
 
@@ -140,7 +141,7 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 
        $result2 = mysqli_query($conn, $storeidQuery);
 
-       if (!$result2){
+       if (mysqli_num_rows($result2)== 0){
         exit("store does not exist");
 	}
 
@@ -150,7 +151,7 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
       
        $result3 = mysqli_query($conn, $cidQuery);
 
-       if (!$result3){
+       if (mysqli_num_rows($result3)== 0){
         exit("Customer does not exist");
 	}
 
@@ -179,7 +180,7 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 
        $result2 = mysqli_query($conn, $storeidQuery);
 
-       if (!$result2){
+       if (mysqli_num_rows($result2)== 0){
         exit("store does not exist");
 	}
 	$sidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);
@@ -221,18 +222,18 @@ elseif ($table == "carries") {
      echo $pidQuery."<br>";
        $result1 = mysqli_query($conn, $pidQuery);
 
-       if (!$result1){
+       if (mysqli_num_rows($result1)== 0){
         exit("Product does not exist");
 	}
 
    	$pidrow = mysqli_fetch_array($result1, MYSQLI_ASSOC);
-	$store = $_POST["storename"];
+	$store = $_POST["store"];
        $storeidQuery = "select storeid from Store where storename = '".$store."'";
 
        echo $storeidQuery."<br>";
        $result2 = mysqli_query($conn, $storeidQuery);
 
-       if (!$result2){
+       if (mysqli_num_rows($result2)== 0){
         exit("store does not exist");
 	}
 
