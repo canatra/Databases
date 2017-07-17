@@ -8,7 +8,9 @@ include 'main.php';
  <ul>
 <li>Search <input type="text" name="search"></li>
 
-  in <select id="tablemenu" name ="tablemenu" onchange = "showForm()" > </h3> 
+  in
+  <form>   
+  <select id="tablemenu" name ="tablemenu" onchange = "showForm()" > </h3> 
             <option value="none"></option>
 			<option value="category">category</option>
 		   <option value="product"> product </option>
@@ -19,4 +21,6 @@ include 'main.php';
 			<option value="store"> store </option>
 			<option value="carries"> carries </option>
             </select>
+			<input type="submit" name="search_submit">
+	</form>		
 			</ul>
