@@ -4,21 +4,21 @@
 
 function connection(){
 
+
 if(!isset($conn)){
 
 	 define('DB_SERVER', 'localhost');
 	 define('DB_USER', 'root');
-	 define('DB_PASSWORD',"{$_POST['pwd']}");
+	 define('DB_PASSWORD',"3624Leno");//{$_POST['pwd']}");
 	 $_SESSION["DB"]= 'Databases_Project';
 
 
-	$conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD);
+	$conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, 'Databases_Project');
 	if($conn) { $_SESSION["connection"] = $conn;
-		}
+	return $conn;
+	}
 	else{ exit("Unable to connect to DB");}
-	$db_selected = mysqli_select_db($conn, $_SESSION["DB"]);
-	if($db_selected) {echo 'Database selected'.'<BR>';}
-	else { exit("DB not selected");}
+	
 	}
 
 }//function connection() 
@@ -26,18 +26,18 @@ if(!isset($conn)){
 
 
 function insert($table){          
-	 $conn = $_SESSION["connection"];
+	 $conn = connection();//$_SESSION["connection"];
 
+//copy and paste connection
+//close connection at the end
 
 //------------------------insert into product table----------------------------
 
-		if (!$conn)
-		   die("connection failed: " .mysli_connect_error());
-		if ($table == "product"){
-		  $catquery = "SELECT cid FROM Category WHERE catname = {$_POST['cat']}";
-		  echo $catquery."<br>";
+			if ($table == "product"){
+		  $catquery = "SELECT cid FROM Category WHERE catname ='".$_POST['cat']."'";
+		  
 		   $result = mysqli_query($conn, $catquery);
-		   		   
+		   
 		   if (!$result){ //if category not found insert into category table
 		      $addCat ="INSERT INTO Category(catname)VALUE ({$_POST['cat']})";
 		      if (mysqli_query($conn, $addCat)){
@@ -50,11 +50,14 @@ function insert($table){
 		  // strtotime($_POST(expdate));
 		   //if ($_
 
-		   $prod = "INSERT INTO product(productname, expdate, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ({$_POST['pname']}, {$_POST['expdate']}, {$_POST['cost']}, {$_POST['quantity']}, {$_POST['threshold']}, {$_POST['price']}, {$catrow['cid']}";
+		   $prod = "INSERT INTO product(productname, exp_date, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$_POST['pname']."', {$_POST['expdate']}, {$_POST['cost']}, {$_POST['quantity']}, {$_POST['threshold']}, {$_POST['price']}, {$catrow['cid']})";
+
+		   echo $prod."<br>";
 		   if ( mysqli_query($conn, $prod)){
 		   echo "product insert Success!" ;	       
 		   }else
 			echo "unable to insert";
+		mysqli_close($conn);
 		}//if($table == "product")
 		
 //------------------------insert into category table------------------------------------	
