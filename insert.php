@@ -1,9 +1,6 @@
-
-
 <?php
-session_start();
-include_once('functions.php');
 include_once('main.php');
+include_once('functions.php');
 $table ="";
 
 if(isset($_POST['product_submit'])){ //check if form was submitted
@@ -30,6 +27,20 @@ elseif(isset($_POST['buy_submit'])){ //check if form was submitted
 	$table = "buy";
 
 }
+elseif(isset($_POST["employee_submit"])){
+	$table = "employee";
+
+}
+
+elseif(isset($_POST["store_submit"])){
+	$table = "store";
+}
+
+
+
+
+
+
 	 insert($table);
 
 ?>
@@ -40,7 +51,7 @@ elseif(isset($_POST['buy_submit'])){ //check if form was submitted
     
    
   
-<?php include 'form.php' ?>
+<?php include_once 'form.php' ?>
 
 
 <script src="Showform.js">

@@ -62,7 +62,7 @@ function insert($table){
 		
 //------------------------insert into category table------------------------------------	
 		elseif($table == "category"){
-		$cat = "INSERT INTO Category(catname, Aisle, description) VALUES ({$_POST['catname']}, {$_POST['Aisle']}, {$_POST['description']}";
+		$cat = "INSERT INTO Category(catname, Aisle, description) VALUES ('".$_POST['catname']."', {$_POST['aisle']},'".$_POST['description']."')";
    		if ( mysqli_query($conn, $cat)){
 		   echo "category insert Success!" ;	       
 		   }else
@@ -74,8 +74,10 @@ function insert($table){
 
 	 elseif ($table == "maker"){
 
-		$maker = "INSERT INTO makers(Manufacturer, Address, Website) VALUES ({$_POST['maker']}, {$_POST['address']}, {$_POST['phone']}, {$_POST['website']}";
-   		if ( mysqli_query($conn, $maker)){
+
+$maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" .  $_POST['maker'] . "', '" . $_POST['address'] . "', '" . $_POST['phone'] . "', '" . $_POST['website'] . "')";
+       //echo $maker."<br>";
+       if ( mysqli_query($conn, $maker)){
 		   echo "Manufacturer insert Success!" ;	       
 		   }else
 			echo "unable to insert";
@@ -84,8 +86,9 @@ function insert($table){
 //-------------------------insert into customer table---------------------------
 
 	   elseif ($table == "customer"){
-	$customer = "INSERT INTO Customer(customername, email, address) VALUES ({$_POST['customername']}, {$_POST['email']}, {$_POST['address']}";
-   		if ( mysqli_query($conn, $customer)){
+	$customer = "INSERT INTO Customer(customername, email, address) VALUES ('".$_POST['customername']."', '".$_POST['email']."', '".$_POST['address']."')";
+	echo $customer."<br>";
+	if ( mysqli_query($conn, $customer)){
 		   echo "customer insert Success!" ;	       
 		   }else
 			echo "unable to insert";
@@ -94,11 +97,11 @@ function insert($table){
 	   elseif ($table == "buy"){
 
 //search product table for pid and customer table for customerid
-	$buy = "INSERT INTO buy(customername, email, address) VALUES ({$_POST['customername']}, {$_POST['email']}, {$_POST['address']}";
-   		if ( mysqli_query($conn, $buy)){
-		   echo "Transaction Added!" ;	       
-		   }else
-			echo "unable to insert";
+//	$buy = "INSERT INTO buy(customername, email, address) VALUES ({$_POST['customername']}, {$_POST['email']}, {$_POST['address']}";
+  // 		if ( mysqli_query($conn, $buy)){
+//		   echo "Transaction Added!" ;	       
+//		   }else
+//			echo "unable to insert";
 }
 			    
 	   
