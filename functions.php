@@ -9,7 +9,7 @@ if(!isset($conn)){
 
 	 define('DB_SERVER', 'localhost');
 	 define('DB_USER', 'root');
-	 define('DB_PASSWORD',
+	 define('DB_PASSWORD', "3624Leno");//{$_POST['pwd']}");
 	 $_SESSION["DB"]= 'Databases_Project';
 
 
@@ -31,18 +31,21 @@ function insert($table){
 //------------------------insert into product table----------------------------
 
 			if ($table == "product"){
-		  $catquery = "SELECT cid FROM Category WHERE catname ='".$_POST['cat']."'";
 		  
+		  $cat = $_POST['cat'];
+		  $catquery = "SELECT cid FROM Category WHERE catname ='".$cat."'";
 		   $result = mysqli_query($conn, $catquery);
 		   
-		   if (!$result){ //if category not found insert into category table
-		      $addCat ="INSERT INTO Category(catname)VALUE ({$_POST['cat']})";
+		   if (mysqli_num_rows($result)== 0){ //if category not found insert into category table
+		      $addCat ="INSERT INTO Category(catname) VALUE ('".$cat."')";
+		      echo $addCat."<br>";
 		      if (mysqli_query($conn, $addCat)){
 		      	 $result = mysqli_query($conn, $catquery);
 			 }//if(mysli_query($conn, $addCat))			 
 		   }//if(!result)		   
 		   
 		   $catrow = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		   
 		   $pname = $_POST['pname'];
 
 		   $prod = "INSERT INTO product(productname, exp_date, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$pname."', '".$_POST['expdate']."', {$_POST['cost']}, {$_POST['quantity']}, {$_POST['threshold']}, {$_POST['price']}, {$catrow['cid']})";
