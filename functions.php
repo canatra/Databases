@@ -9,7 +9,7 @@ if(!isset($conn)){
 
 	 define('DB_SERVER', 'localhost');
 	 define('DB_USER', 'root');
-	 define('DB_PASSWORD',"3624Leno");//{$_POST['pwd']}");
+	 define('DB_PASSWORD',"****");//{$_POST['pwd']}");
 	 $_SESSION["DB"]= 'Databases_Project';
 
 
@@ -28,9 +28,6 @@ if(!isset($conn)){
 function insert($table){          
 	 $conn = connection();//$_SESSION["connection"];
 
-//copy and paste connection
-//close connection at the end
-
 //------------------------insert into product table----------------------------
 
 			if ($table == "product"){
@@ -47,10 +44,8 @@ function insert($table){
 		   
 		   $catrow = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-		  // strtotime($_POST(expdate));
-		   //if ($_
 
-		   $prod = "INSERT INTO product(productname, exp_date, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$_POST['pname']."', {$_POST['expdate']}, {$_POST['cost']}, {$_POST['quantity']}, {$_POST['threshold']}, {$_POST['price']}, {$catrow['cid']})";
+		   $prod = "INSERT INTO product(productname, exp_date, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$_POST['pname']."', '".$_POST['expdate']."', {$_POST['cost']}, {$_POST['quantity']}, {$_POST['threshold']}, {$_POST['price']}, {$catrow['cid']})";
 
 		   echo $prod."<br>";
 		   if ( mysqli_query($conn, $prod)){
@@ -87,7 +82,7 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 
 	   elseif ($table == "customer"){
 	$customer = "INSERT INTO Customer(customername, email, address) VALUES ('".$_POST['customername']."', '".$_POST['email']."', '".$_POST['address']."')";
-	echo $customer."<br>";
+	
 	if ( mysqli_query($conn, $customer)){
 		   echo "customer insert Success!" ;	       
 		   }else
@@ -97,13 +92,52 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 	   elseif ($table == "buy"){
 
 //search product table for pid and customer table for customerid
-//	$buy = "INSERT INTO buy(customername, email, address) VALUES ({$_POST['customername']}, {$_POST['email']}, {$_POST['address']}";
-  // 		if ( mysqli_query($conn, $buy)){
-//		   echo "Transaction Added!" ;	       
-//		   }else
-//			echo "unable to insert";
+
+//find pid, find storeid, find card_num
+       //product, quantity, date, store, customer_name
+
+       $pidQuery = "select pid from product where productname = '".$_POST['product']."'";
+       		        $result1 = mysqli_query($conn, $pidQuery);
+
+       if (!$result1){
+        exit("Product does not exist");
+	}
+
+   	$pidrow = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+
+       $storeidQuery = "select storeid from Store where storename = '".$_POST['store']."'";
+
+       $result2 = mysqli_query($conn, $storeidQuery);
+
+       if (!$result2){
+        exit("store does not exist");
+	}
+
+   	$sidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+
+       $cidQuery = "select card_num from Customer where customername = '".$_POST['customer_name']."'";
+      
+       $result3 = mysqli_query($conn, $cidQuery);
+
+       if (!$result3){
+        exit("Customer does not exist");
+	}
+
+   	$cidrow = mysqli_fetch_array($result3, MYSQLI_ASSOC);
+	$date = date("Y-m-d");
+
+	$buy = "INSERT INTO buy(pid, quantity, tdate, storeID, card_num) VALUES ( " . $pidrow['pid'] . " , ".$_POST['quantity'] . " , '" . $date . "' , " . $sidrow['storeid'] . " , " . $cidrow['card_num'] . " )";
+	echo $buy."<br>";
+
+
+   		if ( mysqli_query($conn, $buy)){
+		   echo "Transaction Added!" ;	       
+		   }else
+			echo "unable to insert";
 }
-			    
+	
+
+		    
 	   
 
 	   
