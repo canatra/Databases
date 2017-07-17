@@ -219,7 +219,7 @@ elseif ($table == "carries") {
 
      $pname = $_POST["pname"];
      $pidQuery = "select pid from product where productname = '".$pname."'";
-     echo $pidQuery."<br>";
+
        $result1 = mysqli_query($conn, $pidQuery);
 
        if (mysqli_num_rows($result1)== 0){
@@ -230,7 +230,7 @@ elseif ($table == "carries") {
 	$store = $_POST["store"];
        $storeidQuery = "select storeid from Store where storename = '".$store."'";
 
-       echo $storeidQuery."<br>";
+
        $result2 = mysqli_query($conn, $storeidQuery);
 
        if (mysqli_num_rows($result2)== 0){
@@ -257,6 +257,83 @@ elseif ($table == "carries") {
 	
 
 //---------------------Update function--------------------------
+
+function update($table){          
+	 $conn = connection();  //$_SESSION["connection"];
+
+
+switch($table){
+
+	case("product"):
+		
+	if (empty($_POST['pid'])){
+	   exit("Product not inserted, must have a valid product id");	
+	}else{
+		$update = "UPDATE product SET ";
+				
+		foreach ($_POST as $key => $val){
+		
+		if (!empty($val) && $key != "pid" && $val !="Submit"){
+		     
+		   if ( $key == "unit_cost" || $key == "unit_price" 
+		   || $key == "quantity" || $key == "min_threshold")
+		   $update .= $key ."= ".$val; 
+		   else
+		   $update .= $key ."= '". $val."'";
+		   
+		   
+		   $update .=",";
+		
+		}//if !empty
+
+		}//foreach		
+		
+		$update= rtrim($update, ",");
+		$update .= "where pid =".$_POST['pid'];
+		echo $update."<br>";
+      		 if (mysqli_query($conn, $update)){
+		    echo "updated ".$_POST['productname']." successfully!"."<br>";
+}	
+	else
+	 echo "update to ".$_POST['productname']." not successful";
+	 }//else
+
+	
+	
+	break;
+	
+
+	case("maker"):
+		
+	if (empty($_POST['mid'])){
+	   exit("Product not inserted, must have a valid product id");	
+	}else{
+		$update = "UPDATE makers SET ";
+				
+		foreach ($_POST as $key => $val){
+		
+		if (!empty($val) && $key != "mid" && $val !="Submit"){
+		   $update .= $key ."= '".$val ."' ,"; 
+		   }//if !empty
+		   
+	}
+		$update= rtrim($update, ",");
+		$update .= "where mid =".$_POST['mid'];
+		
+      		 if (mysqli_query($conn, $update)){
+		    echo "updated ".$_POST['Manufacturer']." successfully!"."<br>";
+		    }	
+	else
+	 echo "update to ".$_POST['Manufacturer']." not successful";
+	 }
+
+
+	break;
+
+}
+	mysqli_close($conn);
+
+	}//function update
 
 
 ?>

@@ -1,28 +1,20 @@
 <?php
-include 'functions.php';
+
 include 'main.php';
+include 'functions.php';
 
-
-/* if(isset($_POST['product_submit'])){ //check if form was submitted
-  $input = $_POST['pid']; //get input text
-  $message = "Success! You entered: ".$input;
-  echo $message;
-  
-}    */
+$table ="";
 
 if(isset($_POST['product_submit'])){ //check if form was submitted
-  $input = $_POST['pid']; //get input text
-  $message = "product insert Success! You entered: ".$input;
-  echo $message;
-  
+    $table = "product";
 }    
 
 if(isset($_POST['maker_submit'])){ //check if form was submitted
-  $input = $_POST['mid']; //get input text
-  $message = "maker insert Success! You entered: ".$input;
-  echo $message;
-  
-}    
+  $table = "maker";  
+}
+
+update($table);
+
 ?>
     
      <p style="font-size:25px; color:lightblue;">Submit your update</p>
@@ -31,9 +23,9 @@ if(isset($_POST['maker_submit'])){ //check if form was submitted
     
    
   
-<?php include 'form.php' ?>
+<?php include 'updateform.php' ?>
 
 
-<script src="Showform.js">
+<script src="updateShowform.js">
 
 </script>
