@@ -1,11 +1,14 @@
-<?php
-session_start();
-   ?>
-
 <!DOCTYPE html>
 <html>
 <head>
 <style>
+body {
+	//background-color: lightblue;
+   background-image: url("cutie4.jpg");
+   background-size:55% 55%
+   background-repeat: no-repeat;
+   
+}
  ul
  {
     list-style-type:none;
@@ -93,7 +96,15 @@ a{
 </div></li>
 
  
-<li><a href="#advanced">Advanced</a></li>
+<li><div class="dropdown">
+  <span>ADVANCED</span>
+   <div class="dropdown-content">
+    <ul><a href="advancedsearch.php">advanced search</a></ul>
+	
+	
+  </div>
+</div></li>
+
 <li><a href="#about">About</a></li>
 
 </ul>
