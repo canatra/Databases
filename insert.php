@@ -1,30 +1,45 @@
-
-
 <?php
-include 'functions.php';
-include 'main.php';
-
-
-/* if(isset($_POST['product_submit'])){ //check if form was submitted
-  $input = $_POST['pid']; //get input text
-  $message = "Success! You entered: ".$input;
-  echo $message;
-  
-}    */
+include_once('main.php');
+include_once('functions.php');
+$table ="";
 
 if(isset($_POST['product_submit'])){ //check if form was submitted
-  $input = $_POST['pid']; //get input text
-  $message = "product insert Success! You entered: ".$input;
-  echo $message;
-  
+    $table = "product";
+ 
 }    
 
-if(isset($_POST['maker_submit'])){ //check if form was submitted
-  $input = $_POST['mid']; //get input text
-  $message = "maker insert Success! You entered: ".$input;
-  echo $message;
-  
+elseif(isset($_POST['category_submit'])){ //check if form was submitted
+  $table = "category";
+ 
 }    
+elseif(isset($_POST['maker_submit'])){ //check if form was submitted
+
+	$table = "maker";
+
+}
+elseif(isset($_POST['customer_submit'])){ //check if form was submitted
+
+	$table = "customer";
+
+}
+elseif(isset($_POST['buy_submit'])){ //check if form was submitted
+
+	$table = "buy";
+
+}
+elseif(isset($_POST["employee_submit"])){
+	$table = "employee";
+
+}
+
+elseif(isset($_POST["store_submit"])){
+	$table = "store";
+}
+
+
+
+	 insert($table);
+
 ?>
     
      <p style="font-size:25px; color:lightblue;">Submit your insertion</p>
@@ -33,7 +48,7 @@ if(isset($_POST['maker_submit'])){ //check if form was submitted
     
    
   
-<?php include 'form.php' ?>
+<?php include_once 'form.php' ?>
 
 
 <script src="Showform.js">
