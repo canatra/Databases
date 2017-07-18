@@ -50,7 +50,7 @@ function insert($table){
 
 		   $prod = "INSERT INTO product(productname, exp_date, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$pname."', '".$_POST['expdate']."', {$_POST['cost']}, {$_POST['quantity']}, {$_POST['threshold']}, {$_POST['price']}, {$catrow['cid']})";
 
-		   echo $prod."<br>";
+		 
 		   if ( mysqli_query($conn, $prod)){
 		   echo "product insert Success!" ;	       
 		   }else
@@ -128,14 +128,15 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 //find pid, find storeid, find card_num
        //product, quantity, date, store, customer_name
 
-       $pidQuery = "select pid from product where productname = '".$_POST['product']."'";
-       		        $result1 = mysqli_query($conn, $pidQuery);
-
-       if (mysqli_num_rows($pidQuery)== 0){
-        exit("Product does not exist");
-	}
-
-   	$pidrow = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+       //$pidQuery = "select pid from product where productname = '".$_POST['product']."'";
+       //$result1 = mysqli_query($conn, $pidQuery);
+//echo $pidQuery."<br>";
+       //if (mysqli_num_rows($pidQuery)== 0){
+        //exit("Product does not exist");
+	//}
+	
+$pidrow = $_POST['product'];
+   //	$pidrow = mysqli_fetch_array($result1, MYSQLI_ASSOC);
 
        $storeidQuery = "select storeid from Store where storename = '".$_POST['store']."'";
 
@@ -158,7 +159,7 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
    	$cidrow = mysqli_fetch_array($result3, MYSQLI_ASSOC);
 	$date = date("Y-m-d");
 
-	$buy = "INSERT INTO buy(pid, quantity, tdate, storeID, card_num) VALUES ( " . $pidrow['pid'] . " , ".$_POST['quantity'] . " , '" . $date . "' , " . $sidrow['storeid'] . " , " . $cidrow['card_num'] . " )";
+	$buy = "INSERT INTO buy(pid, quantity, tdate, storeID, card_num) VALUES ( " . $pidrow . " , ".$_POST['quantity'] . " , '" . $date . "' , " . $sidrow['storeid'] . " , " . $cidrow['card_num'] . " )";
 	echo $buy."<br>";
 
 
@@ -289,7 +290,7 @@ switch($table){
 		}//foreach		
 		
 		$update= rtrim($update, ",");
-		$update .= "where pid =".$_POST['pid'];
+		$update .= " where pid =".$_POST['pid'];
 		echo $update."<br>";
       		 if (mysqli_query($conn, $update)){
 		    echo "updated ".$_POST['productname']." successfully!"."<br>";
@@ -306,7 +307,7 @@ switch($table){
 	case("maker"):
 		
 	if (empty($_POST['mid'])){
-	   exit("Product not inserted, must have a valid product id");	
+	   exit("Manufacturer id not entered, must have a valid Manufacturer id");	
 	}else{
 		$update = "UPDATE makers SET ";
 				
@@ -329,11 +330,160 @@ switch($table){
 
 
 	break;
+	
+	case "customer":
+
+		
+	if (empty($_POST['card_num'])){
+	   exit("customer card number not entered, must have a valid card number");	
+	}else{
+		$update = "UPDATE Customer SET ";
+				
+		foreach ($_POST as $key => $val){
+		
+		if (!empty($val) && $key != "card_num" && $val !="Submit"){
+		   $update .= $key ."= '".$val ."' ,"; 
+		   }//if !empty
+		   
+	}
+		$update= rtrim($update, ",");
+		$update .= " where card_num =".$_POST['card_num'];
+		
+      		 if (mysqli_query($conn, $update)){
+		    echo "updated ".$_POST['customername']." information successfully!"."<br>";
+		    }	
+	else
+	 echo "update to ".$_POST['customername']." not successful";
+	 }
+
+
+	break;
+
+	case "employee":
+
+		
+	if (empty($_POST['emplid'])){
+	   exit("Employee id not entered, must have a valid employee id");	
+	}else{
+		$update = "UPDATE Employee SET ";
+				
+		foreach ($_POST as $key => $val){
+		
+		if (!empty($val) && $key != "emplid" && $val !="Submit"){
+		   
+		   if($val == "wages") 
+		   $update .= $key ."= ".$val ." ,"; 
+		   else
+		   $update .= $key ."= '".$val ."' ,"; 
+		   }//if !empty
+		   
+	}
+		$update= rtrim($update, ",");
+		$update .= " where emplid =".$_POST['emplid'];
+		
+      		 if (mysqli_query($conn, $update)){
+		    echo "updated ".$_POST['employeename']." information successfully!"."<br>";
+		    }	
+	else
+	 echo "update to ".$_POST['employeename']." not successful";
+	 }
+
+
+	break;
+
+
+	case "store":
+
+		
+	if (empty($_POST['storeid'])){
+	   exit("Store id not entered, must have a valid Store id");	
+	}else{
+		$update = "UPDATE Store SET ";
+				
+		foreach ($_POST as $key => $val){
+		
+		if (!empty($val) && $key != "storeid" && $val !="Submit"){
+			   $update .= $key ."= '".$val ."' ,"; 
+	
+		   }
+	}
+		$update= rtrim($update, ",");
+		$update .= " where storeid =".$_POST['storeid'];
+		
+      		 if (mysqli_query($conn, $update)){
+		    echo "updated ".$_POST['storename']." information successfully!"."<br>";
+		    }	
+	else
+	 echo "update to ".$_POST['storename']." not successful";
+	 }
+
+
+	break;
+
 
 }
 	mysqli_close($conn);
 
 	}//function update
+
+//--------------------------------function delete--------------------------
+
+function delete($table, $choice){
+$conn = connection();  //$_SESSION["connection"];
+      
+      $delete ="";
+       
+       switch($choice){
+
+	case "pid":
+	case "unit_cost":
+	case "quantity":
+	case "min_threshold":
+	case "unit_price":
+	case "cid":
+	case "tid":
+	case "storeid":
+	case "card_num":
+	case "Aisle":
+	case "wages":
+	case "emplid":
+	case "hoursperweek":
+	     	$delete = "delete from ". $table ." where ". $choice . " = ". $_POST['deletekeyword']; 	     
+
+		break;
+		
+	case "storename":
+	case "email":
+	case "address":
+	case "location":
+	case "phone":
+	case "employeename":
+	case "job_type":
+	case "hoursperweek":
+	case "SSN":
+	case "date":
+	case "catname":
+	case "description":
+	case "customername":
+	case "Manufacturer":
+	case "Website":
+	case "productname":
+	case "exp_date":
+	     	$delete = "delete from ". $table ." where ". $choice . " = '". $_POST['deletekeyword'] ."'";
+ 	     
+	 }
+	 
+	 if (!empty($delete)){
+    
+	 if (mysqli_query($conn, $delete)){
+		    echo "deleted successfully!";
+		    }	
+	else
+	 echo "did not delete";
+	 	     }
+	     
+mysqli_close($conn);
+}//function delete
 
 
 ?>

@@ -9,8 +9,23 @@ if(isset($_POST['product_submit'])){ //check if form was submitted
     $table = "product";
 }    
 
-if(isset($_POST['maker_submit'])){ //check if form was submitted
-  $table = "maker";  
+elseif(isset($_POST['maker_submit'])){ //check if form was submitted
+  	$table = "maker";  
+}
+elseif(isset($_POST['customer_submit'])){ //check if form was submitted
+	$table = "customer";
+}
+elseif(isset($_POST['employee_submit'])){ //check if form was submitted
+
+	$table = "employee";
+}
+elseif(isset($_POST['store_submit'])){ //check if form was submitted
+
+	$table = "store";
+}
+elseif(isset($_POST['carries_submit'])){ //check if form was submitted
+
+	$table = "carries";
 }
 
 update($table);
