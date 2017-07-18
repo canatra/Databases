@@ -21,7 +21,6 @@ body {
 	padding-bottom:6px;
 	overflow:hidden;
  }
-
 li {
 	display:inline;
 	overflow:hidden;
@@ -37,25 +36,19 @@ li {
 	text-decoration:none;
 	text-transform:uppercase;
 	}
-
 h1 {
 	font-family: Arial, Helvetica, sans-serif;
 }
-
-
 .dropdown {
 	
     display: inline-block;
 	margin=5px;
 	}
-
-
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: lightblue;
 	
-
 	}
 .dropdown-content a:hover {
 	color: black}
@@ -65,11 +58,9 @@ h1 {
     display: block;
 	
 	}
-
 a{
 	color:white; 
 	}
-
  a:link 
  {
 	 
@@ -77,6 +68,25 @@ a{
  color: white;
  
 	}
+
+
+table, th, td{
+border: 1px solid white;
+
+
+}
+table {
+      color: white;
+    background-color: lightblue;
+}
+th {
+    text-align: center;
+}
+
+td {
+    padding: 15px;
+}
+
 </style>
 </head>
 

@@ -451,24 +451,7 @@ $conn = connection();  //$_SESSION["connection"];
 	     	$delete = "delete from ". $table ." where ". $choice . " = ". $_POST['deletekeyword']; 	     
 
 		break;
-		
-	case "storename":
-	case "email":
-	case "address":
-	case "location":
-	case "phone":
-	case "employeename":
-	case "job_type":
-	case "hoursperweek":
-	case "SSN":
-	case "date":
-	case "catname":
-	case "description":
-	case "customername":
-	case "Manufacturer":
-	case "Website":
-	case "productname":
-	case "exp_date":
+	default:	
 	     	$delete = "delete from ". $table ." where ". $choice . " = '". $_POST['deletekeyword'] ."'";
  	     
 	 }
@@ -484,6 +467,75 @@ $conn = connection();  //$_SESSION["connection"];
 	     
 mysqli_close($conn);
 }//function delete
+
+
+//--------------------------------basic search function-------------------------
+// Reference: http://idiallo.com/blog/php-mysql-search-algorithm
+
+
+function limit($query, $lim = 200){
+//limits the search string to less than 200 chars in length
+	 return substr($query, 0, $lim);
+
+}
+
+function search($table){
+
+	 $conn = connection();  //$_SESSION["connection"];
+      	  $query = $_POST['search'];
+	  $query = trim($query);
+	  
+
+	  if(strlen($query) === 0){
+	   exit("Search string empty");	
+	  }	 		 
+	  $query = limit($query);	  
+
+
+	switch ($table){	 		 
+	       
+	       case "product":
+	       $search = "select * from ". $table. " where productname = '".$query."'";	
+	       break;
+	       
+	       case "Category":
+	       	 $search = "select * from ". $table. " where catname = '".$query."'";	
+		break;
+
+	       case "makers":
+	       $search = "select * from ". $table. " where Manufacturer = '".$query."'";	
+	       break;
+	       case "Customer":
+	       $search = "select * from ". $table. " where customername = '".$query."'";	
+	       break;
+	       case "buy":
+	       $search = "select * from ". $table. " where tid = ".$query;	
+	       break;
+
+	       case "Employee":
+	       $search = "select * from ". $table. " where employeename = '".$query."'";	
+	       break;
+	       case "Store":
+	       $search = "select * from ". $table. " where storename = '".$query."'";	
+	       break;
+	       case "carries":
+	       $search = "select * from ". $table. " where pid = ".$query;	
+
+}	
+       $result = mysqli_query($conn, $search);
+
+       if (mysqli_num_rows($result)== 0){
+        exit("{$table} does not exist");
+	}
+
+	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		
+
+
+mysqli_close($conn);
+
+	return $row;
+}
 
 
 ?>
