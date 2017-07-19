@@ -62,7 +62,7 @@ if (isset($_POST['advanced_submit'])){
 	        <select name ="selection">  
             <option value="on"> on </option>
 			<option value="before"> before </option>
-			<option value="on_before"> on and before </option>
+			<option value="on_before"> on or before </option>
 			</select>
 			 <input type="date"  name="advanced_keyword">
 			 <input type="submit" name="advanced_submit">

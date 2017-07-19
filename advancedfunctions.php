@@ -19,18 +19,21 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 	    {
 	     $size= sizeof($row);	     
 	     print "<th colspan=$size>".$title.'</th>';
- 	     }
-	     
-		print '<tr>';
+	     print '<tr>';
+	     }
 
-		if ($size > 1){
+	if ($counter == 0 && $size > 1){	
+
 		foreach ($row as $key => $val){
 	    if (!empty($key))    
 	   	 print  '<td>'.$key.'</td>';
 	
-		 }
-	    print '</tr><tr>';
+		
+	    
 	    }
+	    print '<tr>';
+}
+	    
 	    	    foreach ($row as $key => $val){
 	    if (!empty($val))    
 	   	 print  '<td>'.$val.'</td>';
@@ -84,6 +87,25 @@ function advancedSearch($option){
 
 
 	     break;
+
+	     case "before":
+	     $advancedsearch = "select date as 'Date', customername as 'Customer', productname as 'Product', quantity as 'Quantity', storename as 'Store' from Store, (select customername, productname, customerbought.quantity as 'quantity', date, storeid from product, (select customername, buy.quantity, pid, storeid, date from buy natural join Customer where date < '".$_POST['advanced_keyword']."') as customerbought where product.pid = customerbought.pid) as transactioninfo where Store.storeid = transactioninfo.storeid";
+	     
+  $title = "Transaction(s) before ".$_POST['advanced_keyword'].":";
+	      printTable($conn, $advancedsearch, $title);
+
+
+	     break;
+
+	     case "on_before":
+	     	     $advancedsearch = "select date as 'Date', customername as 'Customer', productname as 'Product', quantity as 'Quantity', storename as 'Store' from Store, (select customername, productname, customerbought.quantity as 'quantity', date, storeid from product, (select customername, buy.quantity, pid, storeid, date from buy natural join Customer where date <= '".$_POST['advanced_keyword']."') as customerbought where product.pid = customerbought.pid) as transactioninfo where Store.storeid = transactioninfo.storeid";
+	     
+  $title = "Transaction(s) before ".$_POST['advanced_keyword'].":";
+	      printTable($conn, $advancedsearch, $title);
+
+
+	     break;
+
 }
 
 
