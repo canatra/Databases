@@ -1,19 +1,19 @@
 <?php
 //Functions.php will be used to hold the functions that will be called from other scripts: connect, insert,delete, search, etc
-
+include_once('advancedfunctions.php');
 
 function connection(){
 
 
 if(!isset($conn)){
 
-	 define('DB_SERVER', 'localhost');
-	 define('DB_USER', 'root');
-	 define('DB_PASSWORD', "3624Leno");//{$_POST['pwd']}");
+	 $DB_SERVER = 'localhost';
+	 $DB_USER = 'root';
+	 $DB_PASSWORD = "3624Leno";//{$_POST['pwd']}");
 	 $_SESSION["DB"]= 'Databases_Project';
 
-
-	$conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, 'Databases_Project');
+	 
+	$conn = mysqli_connect($DB_SERVER, $DB_USER, $DB_PASSWORD, 'Databases_Project');
 	if($conn) { $_SESSION["connection"] = $conn;
 	return $conn;
 	}
@@ -31,7 +31,22 @@ function insert($table){
 //------------------------insert into product table----------------------------
 
 			if ($table == "product"){
-		  
+			
+
+		$pid = "SELECT pid,quantity FROM product where productname ='".$_POST['productname']."'";
+		$result2 = mysqli_query($conn, $pid);
+		$pidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);			    
+
+		if ( !empty($pidrow))//product already exists in the table
+		{
+		
+		$_POST['pid'] = $pidrow['pid'];	
+		$_POST['quantity'] += $pidrow['quantity'];
+		mysqli_close($conn);	
+		update($table);
+		
+		}else{ //new product
+ 
 		  $cat = $_POST['cat'];
 		  $catquery = "SELECT cid FROM Category WHERE catname ='".$cat."'";
 		   $result = mysqli_query($conn, $catquery);
@@ -46,45 +61,59 @@ function insert($table){
 		   
 		   $catrow = mysqli_fetch_array($result, MYSQLI_ASSOC);
 		   
-		   $pname = $_POST['pname'];
+		   $pname = $_POST['productname'];
 
-		   $prod = "INSERT INTO product(productname, exp_date, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$pname."', '".$_POST['expdate']."', {$_POST['cost']}, {$_POST['quantity']}, {$_POST['threshold']}, {$_POST['price']}, {$catrow['cid']})";
-
+		   $prod = "INSERT INTO product(productname, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$pname."', {$_POST['unit_cost']}, {$_POST['quantity']}, {$_POST['min_threshold']}, {$_POST['unit_price']}, {$catrow['cid']})";
+		   
 		 
 		   if ( mysqli_query($conn, $prod)){
 		   echo "product insert Success!" ;	       
 		   }else
-			echo "unable to insert";
-	
-
-
-		$pid = "SELECT pid FROM product where productname ='".$pname."'";
-		$result2 = mysqli_query($conn, $pid);
-		$pidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);	
+			exit("unable to insert");
 	
 		$maker = $_POST['maker'];	
 		$mid = "SELECT mid FROM makers where Manufacturer ='".$maker."'";
 		
 		 $result3 = mysqli_query($conn, $mid);
 		
-		  if (mysqli_num_rows($result3)== 0){ //if manufacturer not found insert into manufacturer table
-		      $addMan ="INSERT INTO makers(Manufacturer)VALUE ('".$maker."')";
+		  if (mysqli_num_rows($result3) ==0){ //if manufacturer not found insert into manufacturer table
+		   
+		      $addMan ="INSERT INTO makers(Manufacturer) VALUE ('".$maker."')";
 		      if (mysqli_query($conn, $addMan)){
 		      	 $result3 = mysqli_query($conn, $mid);
 			 }//if(mysli_query($conn, $mid))			 
-		   }//if(!result3)		   
-		 
+		   }//if(!result3)	
 
+			 
 		$midrow = mysqli_fetch_array($result3, MYSQLI_ASSOC);	
+
+		 
+		$pid = "SELECT pid FROM product where productname ='".$pname."'";
+		
+		$result2 = mysqli_query($conn, $pid);
+		
+		
+		$pidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);		
+		
 			
 		$makes = "INSERT INTO makes(pid, mid) VALUES (".$pidrow['pid'].",".$midrow['mid'].")";
 		
    		if (mysqli_query($conn, $makes)){
 		   echo "<br>";
 			 }//if(mysli_query($conn, $mid))			 
-		 
 
 
+		 if (!empty($_POST['expdate'])){
+
+		 $expires = "INSERT INTO Expires(pid, exp_date, quantity) VALUES (".$pidrow['pid'].", '". $_POST['expdate']."', {$_POST['quantity']})";
+	 	
+		if (mysqli_query($conn, $expires)){
+		
+		   echo "<br>";
+			 }//if(mysli_query($conn, $expires))			 
+			 else echo "Did not add expiration date";
+				 } 
+		 }
 		}//if($table == "product")
 		
 //------------------------insert into category table------------------------------------	
@@ -249,10 +278,10 @@ elseif ($table == "carries") {
 		   }else
 			echo "unable to insert";
 
-     
+     mysqli_close($conn);
 }
 
-	mysqli_close($conn);
+	
 
 	}//function insert
 	
@@ -260,6 +289,7 @@ elseif ($table == "carries") {
 //---------------------Update function--------------------------
 
 function update($table){          
+	 
 	 $conn = connection();  //$_SESSION["connection"];
 
 
@@ -279,6 +309,10 @@ switch($table){
 		   if ( $key == "unit_cost" || $key == "unit_price" 
 		   || $key == "quantity" || $key == "min_threshold")
 		   $update .= $key ."= ".$val; 
+		   
+		   elseif ($key == "cat" || $key == "maker" || $key == "exp_date") 
+		   	  continue;
+		   
 		   else
 		   $update .= $key ."= '". $val."'";
 		   
@@ -291,12 +325,15 @@ switch($table){
 		
 		$update= rtrim($update, ",");
 		$update .= " where pid =".$_POST['pid'];
-		echo $update."<br>";
+		
       		 if (mysqli_query($conn, $update)){
-		    echo "updated ".$_POST['productname']." successfully!"."<br>";
+		    echo "updated successfully!"."<br>";
 }	
 	else
-	 echo "update to ".$_POST['productname']." not successful";
+	 exit( "update not successful");
+	 
+		
+	 
 	 }//else
 
 	
@@ -490,51 +527,57 @@ function search($table){
 	   exit("Search string empty");	
 	  }	 		 
 	  $query = limit($query);	  
-
+	  $title = "";
 
 	switch ($table){	 		 
 	       
 	       case "product":
-	       $search = "select * from ". $table. " where productname = '".$query."'";	
+	       $search = "select pid as 'Product Id', productname as 'Product', quantity as 'Quantity',min_threshold as 'Minimum', unit_cost as 'Cost', unit_price as 'Price', catname as 'Category', Manufacturer from makers, (select makes.pid, productname,quantity, min_threshold, unit_cost, unit_price, catname, mid from makes,(select product.pid, productname, quantity, min_threshold, unit_cost, unit_price, catname from product, Category where productname = '".$query."' and Category.cid = product.cid) as prodcat where makes.pid = prodcat.pid) as prodmak where prodmak.mid = makers.mid";
+	       $title = "Product";
 	       break;
 	       
 	       case "Category":
 	       	 $search = "select * from ". $table. " where catname = '".$query."'";	
+		 $title = "$table";
 		break;
 
 	       case "makers":
 	       $search = "select * from ". $table. " where Manufacturer = '".$query."'";	
+	       $title = "Manufacturer";
 	       break;
 	       case "Customer":
+	       $title = "Customer Information";
 	       $search = "select * from ". $table. " where customername = '".$query."'";	
 	       break;
 	       case "buy":
-	       $search = "select * from ". $table. " where tid = ".$query;	
+	       $title = "Transaction Information";
+	       $search = "select tid as 'Transaction id', date, customername as 'Customer', productname as 'Product', storebuy.quantity as 'Quantity', storename from Customer, (select tid, productname, buyprod.quantity, date, storename, card_num from Store,(select tid, productname, buy.quantity, date, storeid, card_num from buy, product where buy.pid = product.pid and tid = {$query}) as buyprod where Store.storeid = buyprod.storeid) as storebuy where Customer.card_num = storebuy.card_num";
 	       break;
 
 	       case "Employee":
-	       $search = "select * from ". $table. " where employeename = '".$query."'";	
-	       break;
+	       $title = "Employee Information";
+	       $search = "select emplid as 'Employee id', employeename as 'Employee Name', job_type as 'Job title', hoursperweek as 'Hours', wages as 'Earns', Employee.phone as 'Phone Number', Employee.email as 'Email', storename as 'Store name' from Employee, Store where employeename = '".$query."' and Employee.storeid = Store.storeid";	 
+      break;
 	       case "Store":
+	       $title = "Store Information";
 	       $search = "select * from ". $table. " where storename = '".$query."'";	
+	     
 	       break;
+	     
 	       case "carries":
-	       $search = "select * from ". $table. " where pid = ".$query;	
+	       $title ="Product Found";
+	       $search = "select storename as 'Store', productname as 'Product', quantity as 'Quantity' from Store, (select productname, storeid, carries.quantity from carries, product where carries.pid = product.pid and carries.pid = {$query}) as prodcarry where prodcarry.storeid = Store.storeid";
+	       
 
 }	
-       $result = mysqli_query($conn, $search);
 
-       if (mysqli_num_rows($result)== 0){
-        exit("{$table} does not exist");
-	}
-
-	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-		
+ printTable($conn, $search, $title);
+	
 
 
-mysqli_close($conn);
+	mysqli_close($conn);
 
-	return $row;
+	//return $row;
 }
 
 

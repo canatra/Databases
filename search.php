@@ -49,22 +49,8 @@ if (isset($_POST['search_submit'])){
        
        $row = search($table);   
 
-echo "<br><br><br>";       
-       foreach( $row as $key => $val){
-
-              if (!empty($val))
-       print '<td>'.$key.'</td>';
-
-       }
-
-       print '<tr>';   	    
-       foreach( $row as $val){
-
-       if (!empty($val))
-       print '<td>'.$val.'</td>';
-
-       }
-      print '</tr>';   	    
+   echo "<br><br><br>";
+   
  }
 }
 ?>
