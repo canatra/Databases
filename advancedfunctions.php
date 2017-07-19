@@ -106,6 +106,15 @@ function advancedSearch($option){
 
 	     break;
 
+	     case "products":
+	     $advancedsearch = "select productname from product natural join Category where catname = '".$_POST['advanced_keyword']."'";
+	       $title = "Products in ".$_POST['advanced_keyword'].":";
+	      printTable($conn, $advancedsearch, $title);
+
+	     break;
+
+	     
+
 }
 
 

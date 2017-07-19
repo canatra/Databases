@@ -33,10 +33,11 @@ if (isset($_POST['advanced_submit'])){
 
 <h3>Find  <select id="findmenu" name ="findmenu" onchange = "advancedForm()"> </h3> 
             <option value="none"></option>
-			<option value="who">who</option>
-		     <option value="what">what</option>
-			<option value="transaction">transaction</option>
-            </select>
+			<option value="who">Who</option>
+		     <option value="what">What</option>
+			<option value="transaction">Transaction</option>
+			<option value="all">All</option>
+			</select>
 		<form id="wholist" name ="wholist" style="display:none" method="post">	
 	   	<select name="selection">  
             <option value="makes">makes</option>
@@ -67,7 +68,20 @@ if (isset($_POST['advanced_submit'])){
 			 <input type="date"  name="advanced_keyword">
 			 <input type="submit" name="advanced_submit">
 
+		</form>
+
+
+		<form id="alllist" name ="alllist" style="display:none" method="post" >	
+	        <select name ="selection">  
+            		<option value="products"> products </option>
+			<!--<option value="prod_sold">products sold</option>
+			--></select>
+			in
+			<input type="text"  name="advanced_keyword">
+			 <input type="submit" name="advanced_submit">
+
 		</form>	
+
 
 <script>
 function advancedForm(){
@@ -76,14 +90,24 @@ if(selopt=="who"){
 	document.getElementById("wholist").style.display="inline-block";
 	document.getElementById("whatlist").style.display="none";
 	document.getElementById("transactionlist").style.display="none";
+	document.getElementById("all").style.display="none";
 }
 if(selopt=="what"){
 	document.getElementById("whatlist").style.display="inline-block";
 	document.getElementById("wholist").style.display="none";
 	document.getElementById("transactionlist").style.display="none";
+	document.getElementById("alllist").style.display="none";
 }
 if(selopt=="transaction"){
 	document.getElementById("transactionlist").style.display="inline-block";
+	document.getElementById("wholist").style.display="none";
+	document.getElementById("whatlist").style.display="none";
+	document.getElementById("alllist").style.display="none";
+}
+
+if(selopt=="all"){
+	document.getElementById("alllist").style.display="inline-block";
+	document.getElementById("transactionlist").style.display="none";
 	document.getElementById("wholist").style.display="none";
 	document.getElementById("whatlist").style.display="none";
 	
