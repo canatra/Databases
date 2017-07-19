@@ -8,18 +8,29 @@ function printTable($conn, $advancedsearch, $title){
 	    	    if (mysqli_num_rows($result) == 0){
 	   	     exit ("error");
 	    	     }
-		     
-     print '<td>'.$title.'</td>';
+
+$counter = 0;
+$size = 0;
+	
 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 	    {
+
+	    if ($counter == 0)
+	    {
+	     $size= sizeof($row);	     
+	     print "<th colspan=$size>".$title.'</th>';
+ 	     }
+	     
 		print '<tr>';
-	    	    foreach ($row as $key => $val){
+
+		if ($size > 1){
+		foreach ($row as $key => $val){
 	    if (!empty($key))    
 	   	 print  '<td>'.$key.'</td>';
 	
 		 }
 	    print '</tr><tr>';
-	    
+	    }
 	    	    foreach ($row as $key => $val){
 	    if (!empty($val))    
 	   	 print  '<td>'.$val.'</td>';
@@ -27,7 +38,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 		 }
 	    print '</tr>';
 
-
+	    $counter++;
 
 }}
 
