@@ -12,7 +12,7 @@ include ('advancedfunctions.php');
 if (isset($_POST['advanced_submit'])){
 
 
-	$option= isset($_POST['who'])?$_POST['who']:false;
+	$option= isset($_POST['selection'])?$_POST['selection']:false;
 	
 	if ($option)
 	{
@@ -20,36 +20,8 @@ if (isset($_POST['advanced_submit'])){
 	advancedSearch($option);
 	echo "<br><br><br>";	
 
-/*	switch($option){
-
-	case "makes":
-	    print '<td> Manufacturer </td>';
-
-	    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-	    {	if (!empty($val))    
-	   	 print  '<td>'.$row['Manufacturer'].'</td>';
-	    }
-	    break;
-
-	  case "sells":
-	     print '<td> Stores </td>';
-
-
-	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
-	    {	if (!empty($val))    
-	   	 print  '<tr><td>'.$row['storename'].'</td></tr>';
-	
-		 }
-
-	  break;
-
-	 	 }*/
-
 
 	}
-
-
-
 
 
 }
@@ -66,7 +38,7 @@ if (isset($_POST['advanced_submit'])){
 			<option value="transaction">transaction</option>
             </select>
 		<form id="wholist" name ="wholist" style="display:none" method="post">	
-	   	<select name="who">  
+	   	<select name="selection">  
             <option value="makes">makes</option>
 			<option value="sells">sells</option>
 		    <option value="works in">works in</option>
@@ -77,7 +49,7 @@ if (isset($_POST['advanced_submit'])){
 		</form>	
 		
 		<form id="whatlist" name ="whatlist" style="display:none" method="post">	
-	    <select name="expire">  
+	    <select name="selection">  
             <option value="expires">expires</option>
 		
             </select>
@@ -87,7 +59,7 @@ if (isset($_POST['advanced_submit'])){
 		</form>	
 		
 		<form id="transactionlist" name ="transactionlist" style="display:none" method="post" >	
-	        <select name ="transaction">  
+	        <select name ="selection">  
             <option value="on"> on </option>
 			<option value="before"> before </option>
 			<option value="on_before"> on and before </option>
@@ -96,49 +68,6 @@ if (isset($_POST['advanced_submit'])){
 			 <input type="submit" name="advanced_submit">
 
 		</form>	
-<!--		
-<table>
-<?php
-if (isset($_POST['advanced_submit'])){
-
-
-	 echo "here";
-	$option= isset($_POST['who'])?$_POST['who']:false;
-	
-	if ($option)
-	{
-	 
-	$row = advancedSearch($option);
-
-	switch($option){
-
-	case "makes":
-	echo "<br><br><br>";
-	    print '<td> Manufacturer </td>';
-
-	    foreach ($row as $val)
-	    	if (!empty($val))    
-	   	 print  '<td>'.$val.'<td>';
-	    
-	    break;
-	 	 }
-
-
-	}
-
-
-
-
-
-}
-
-
-?>
-</table>
-</html>
--->
-
-
 
 <script>
 function advancedForm(){
