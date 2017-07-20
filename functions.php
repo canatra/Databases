@@ -611,7 +611,7 @@ function search($table){
       break;
 	       case "Store":
 	       $title = "Store Information";
-	       $search = "select * from ". $table. " where storename = '".$query."'";	
+	       $search = "select distinct * from ". $table. " where storename = '".$query."'";	
 	     
 	       break;
 	     

@@ -2,32 +2,6 @@
 include_once('main.php');
 ?>
 <html>
-<table>
-<?php
-include ('advancedfunctions.php');
-
-
-
-
-if (isset($_POST['advanced_submit'])){
-
-
-	$option= isset($_POST['selection'])?$_POST['selection']:false;
-	
-	if ($option)
-	{
-	 
-	advancedSearch($option);
-	echo "<br><br><br>";	
-
-
-	}
-
-
-}
-
-?>
-</table>
 
 <p style="font-size:25px; color:lightblue;">Advanced Search</p>
 
@@ -115,3 +89,33 @@ if(selopt=="all"){
 }
 </script>
 
+<body>
+
+
+
+<table>
+<?php
+include ('advancedfunctions.php');
+
+
+
+
+if (isset($_POST['advanced_submit'])){
+
+
+	$option= isset($_POST['selection'])?$_POST['selection']:false;
+	
+	if ($option)
+	{
+	 
+	advancedSearch($option);
+	echo "<br><br><br>";	
+
+	}
+}
+
+?>
+</table>
+
+</body>
+</html>

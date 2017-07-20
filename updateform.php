@@ -5,10 +5,8 @@
 	    <option value="product"> Product </option>
             <option value="maker"> Manufacturer  </option>
             <option value="customer"> Customer </option>
-            <option value="buy"> Transaction </option>
-			<option value="employee"> Employee </option>
-			<option value="store"> Store </option>
-			<option value="carries"> Carries </option>
+            <option value="employee"> Employee </option>
+	    <option value="store"> Store </option>
             </select>
 
 <!-- FORM PRODUCT -->  
@@ -19,9 +17,6 @@
 </ul>
 <ul>
 <li>product name: <input type="text" name="productname"></li>
-</ul>
-<ul>
-<li>expiration date: <input type="date"  name="exp_date" ></li>
 </ul>
 <ul>
 <li>cost per unit: <input type="text" name="unit_cost"></li>
@@ -63,7 +58,10 @@
 <form name="customer" id="customer" style="display:none" action="" method="post";>
 <h2>Update Customer Information</h2>
 <ul>
-<li>customername: <input type="text" name="customername"></li>
+<li>card number: <input type="text" name="card_num"></li>
+</ul>
+<ul>
+<li>customer name: <input type="text" name="customername"></li>
 </ul>
 <ul>
 <li>email: <input type="email" name="email"></li>
@@ -76,15 +74,18 @@
 
 <!-- EMPLOYEE FORM -->
 <form name="employee" id="employee" style="display:none" action="" method="post" ;>
-<h2>Add a New Employee</h2>
+<h2>Update Employee Information</h2>
 <ul>
-<li>employee name: <input type="text" name="ename"></li>
+<li>employee id: <input type="text" name="emplid"></li>
 </ul>
 <ul>
-<li>store name: <input type="text" name="storename"></li>
+<li>employee name: <input type="text" name="employeename"></li>
+</ul>
+<ul>
+<li>store id: <input type="text" name="storeid"></li>
 </ul>	  	
 <ul>
-<li>job type (hourly or salary): <input type="text" name="job_type"></li>
+<li>job title (Manager, Cashier, Bag Boy): <input type="text" name="job_type"></li>
 </ul>
 <ul>
 <li>hours per week: <input type="text" name="hoursperweek"></li>
@@ -98,17 +99,17 @@
 <ul>
 <li>email: <input type="email" name="email"></li>
 </ul>
-<ul>
-<li>SSN: <input type="text" name="ssn"></li>
-</ul>
 <p><input type="submit" name="employee_submit"/></p>
 </form>
 
 <!-- STORE FORM -->
 <form name="store" id="store" style="display:none" action="" method="post";>
-<h2>Add a New Store</h2>
+<h2>Update Store Information</h2>
 <ul>
-<li>store name: <input type="text" name="store"></li>
+<li>store id: <input type="text" name="storeid"></li>
+</ul>
+<ul>
+<li>store name: <input type="text" name="storename"></li>
 </ul>
 <ul>
 <li>email: <input type="email" name="email"></li>
@@ -120,16 +121,4 @@
 <li>phone: <input type="tel" name="phone"></li>
 </ul>
 <p><input type="submit" name="store_submit"/></p>
-</form>
-
-<!-- CARRIES FORM -->
-<form name="carries" id="carries" style="display:none" action="" method="post";>
-<h2>Carries</h2>
-<ul>
-<li>Enter the product: <input type="text" name="pname"></li>
-</ul>
-<ul>
-<li>Enter the Store that carries the product: <input type="text" name="store"></li>
-</ul>
-<p><input type="submit" name="carries_submit"/></p>
 </form>

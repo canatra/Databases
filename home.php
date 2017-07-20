@@ -18,7 +18,7 @@ $conn = connection();
 ?>
 <table>
 <?php
-$expiresSoon = "select exp_date as 'Expiration Date', product.pid as 'Productid', productname as 'Product', expires_soon.quantity = 'Quantity' from product, (select * from Databases_Project.Expires where exp_date between CURDATE() and DATE_ADD(CURDATE(), INTERVAL 2 week)) as expires_soon where product.pid = expires_soon.pid order by exp_date";
+$expiresSoon = "select exp_date as 'Expiration Date', product.pid as 'Productid', productname as 'Product' from product, (select exp_date, pid, quantity from Expires where exp_date between CURDATE() and DATE_ADD(CURDATE(), INTERVAL 2 week)) as expires_soon where product.pid = expires_soon.pid order by exp_date";
 
 $result = mysqli_query($conn, $expiresSoon);
 
@@ -44,7 +44,7 @@ $OrderSoon= "select pid as 'Product id', productname as 'Product Name', quantity
 
 $result = mysqli_query($conn, $OrderSoon);
 if (mysqli_num_rows($result) != 0){
-   $title = "Order Soon";
+   $title = "Reorder Soon";
    printTable($conn, $OrderSoon, $title);
 
 }else{

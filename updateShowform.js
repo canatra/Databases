@@ -6,7 +6,6 @@ document.getElementById("maker").style.display="none";
 document.getElementById("customer").style.display="none";
 document.getElementById("employee").style.display="none";
 document.getElementById("store").style.display="none";
-document.getElementById("carries").style.display="none";
 }
 
 if (selopt == "maker") {
@@ -15,7 +14,6 @@ document.getElementById("customer").style.display="none";
 document.getElementById("product").style.display="none";
 document.getElementById("employee").style.display="none";
 document.getElementById("store").style.display="none";
-document.getElementById("carries").style.display="none";
 }
 
 if (selopt == "customer") {
@@ -24,16 +22,6 @@ document.getElementById("maker").style.display="none";
 document.getElementById("product").style.display="none";
 document.getElementById("employee").style.display="none";
 document.getElementById("store").style.display="none";
-document.getElementById("carries").style.display="none";
-}
-
-if (selopt == "carries") {
-document.getElementById("carries").style.display="block";	
-document.getElementById("maker").style.display="none";
-document.getElementById("product").style.display="none";
-document.getElementById("employee").style.display="none";
-document.getElementById("store").style.display="none";
-document.getElementById("customer").style.display="none";
 }
 
 
@@ -43,7 +31,6 @@ document.getElementById("maker").style.display="none";
 document.getElementById("product").style.display="none";
 document.getElementById("store").style.display="none";
 document.getElementById("customer").style.display="none";
-document.getElementById("carries").style.display="none";
 }
 
 if (selopt == "store") {
@@ -52,7 +39,6 @@ document.getElementById("maker").style.display="none";
 document.getElementById("product").style.display="none";
 document.getElementById("employee").style.display="none";
 document.getElementById("customer").style.display="none";
-document.getElementById("carries").style.display="none";
 }
 
 
