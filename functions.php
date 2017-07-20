@@ -154,18 +154,8 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 
 //search product table for pid and customer table for customerid
 
-//find pid, find storeid, find card_num
-       //product, quantity, date, store, customer_name
-
-       //$pidQuery = "select pid from product where productname = '".$_POST['product']."'";
-       //$result1 = mysqli_query($conn, $pidQuery);
-//echo $pidQuery."<br>";
-       //if (mysqli_num_rows($pidQuery)== 0){
-        //exit("Product does not exist");
-	//}
-	
-$pidrow = $_POST['product'];
-   //	$pidrow = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+	 $pidrow = $_POST['product'];
+   
 
        $storeidQuery = "select storeid from Store where storename = '".$_POST['store']."'";
 
@@ -188,15 +178,23 @@ $pidrow = $_POST['product'];
    	$cidrow = mysqli_fetch_array($result3, MYSQLI_ASSOC);
 	$date = date("Y-m-d");
 
-	$buy = "INSERT INTO buy(pid, quantity, tdate, storeID, card_num) VALUES ( " . $pidrow . " , ".$_POST['quantity'] . " , '" . $date . "' , " . $sidrow['storeid'] . " , " . $cidrow['card_num'] . " )";
-	echo $buy."<br>";
-
-
+	$buy = "INSERT INTO buy(pid, quantity, date, storeID, card_num) VALUES ( " . $pidrow . " , ".$_POST['quantity'] . " , '" . $date . "' , " . $sidrow['storeid'] . " , " . $cidrow['card_num'] . " )";
+	
    		if ( mysqli_query($conn, $buy)){
-		   echo "Transaction Added!" ;	       
+		   echo "Transaction Added! <br>" ;	       
+		   $quantity = "select productname, quantity, min_threshold from product where pid = ".$pidrow;
+		   $result = mysqli_query($conn, $quantity);	
+		  
+		   $row = mysqli_fetch_array($result, MYSQLI_ASSOC) ;    
+		   
+		   if ($row['quantity'] < $row['min_threshold'])
+		      echo $row['productname']. " is below the threshold, time to reorder!";
+		
+  
+		   
 		   }else
 			echo "unable to insert";
-}
+			}
 
 
 //-----------------------------Insert into Employee table-----------------------
@@ -577,7 +575,7 @@ function search($table){
 
 	mysqli_close($conn);
 
-	//return $row;
+
 }
 
 
