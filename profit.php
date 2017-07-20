@@ -18,7 +18,7 @@ include_once('main.php');
 		
 		<form id="productlist" name ="productlist" style="display:none" method="post">	
 	    
-			 <input type="text"  name="prodcut_profit">
+			 <input type="text"  name="product_profit">
 			 <input type="submit" name="product_submit">
 		</form>	
 		
@@ -32,7 +32,6 @@ if(selopt=="profitbyproduct"){
 	document.getElementById("productlist").style.display="inline-block";
 	document.getElementById("alllist").style.display="none";
 }
-
 if(selopt=="profitbyall"){
 	document.getElementById("alllist").style.display="inline-block";
 	document.getElementById("productlist").style.display="none";
@@ -42,16 +41,33 @@ if(selopt=="profitbyall"){
 }
 </script>
 
+
 <body>
-
-
 
 <table>
 <?php
 include ('advancedfunctions.php');
 
+
+if (isset($_POST['product_submit'])){
+	$option ="profitbyproduct";
+	advancedSearch($option);
+
+	
+}
+
+elseif (isset($_POST['all_submit'])){
+   
+   $option ="profitbyall";
+	advancedSearch($option);
+
+
+
+}
 ?>
 </table>
+
+
 
 </body>
 </html>
