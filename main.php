@@ -95,8 +95,8 @@ td {
 
 
   div{
-  color: white;
-  background-color:DarkTurquoise;
+  color: black;
+//  background-color:DarkTurquoise;
   font-family: serif;
   font-size: 100%;
   }
@@ -113,7 +113,7 @@ td {
 <li><a href="home.php">HOME</a></li>
 
 <li><div class="dropdown">
-  <span>BASIC</span>
+  <span style="color:white">BASIC</span>
    <div class="dropdown-content">
     <ul><a href="insert.php">INSERT</a></ul>
 	<ul><a href="update.php">UPDATE</a></ul>
@@ -125,10 +125,11 @@ td {
 
  
 <li><div class="dropdown">
-  <span>ADVANCED</span>
+  <span style="color:white">ADVANCED</span>
    <div class="dropdown-content">
-    <ul><a href="advancedsearch.php">advanced search</a></ul>
-	
+    <ul><a href="advancedsearch.php">Advanced Search</a></ul>
+    <ul><a href="profit.php">Profit Calc</a></ul>
+    
 	
   </div>
 </div></li>
