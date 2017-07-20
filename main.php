@@ -34,7 +34,7 @@ li {
 	padding-bottom:6px;
 	font-weight:bold;
 	color:white;
-	background-color:lightblue;
+	background-color:DarkTurquoise;
 	text-align:center;
 	
 	text-decoration:none;
@@ -52,11 +52,12 @@ h1 {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: lightblue;
+background-color:DarkTurquoise;
+
 	
 	}
 .dropdown-content a:hover {
-	color: DarkTurquoise }
+	color: black }
 	
 .dropdown:hover .dropdown-content {
 	
@@ -82,7 +83,7 @@ border: 1px solid white;
 }
 table {
       color: white;
-    background-color: lightblue;
+    background-color: DarkTurquoise;
 }
 th {
     text-align: center;
@@ -95,7 +96,7 @@ td {
 
   div{
   color: white;
-  background-color:LightBlue; 
+  background-color:DarkTurquoise;
   font-family: serif;
   font-size: 100%;
   }
@@ -109,7 +110,7 @@ td {
 
 
 <ul>
-<li><a href="main.php">HOME</a></li>
+<li><a href="home.php">HOME</a></li>
 
 <li><div class="dropdown">
   <span>BASIC</span>
