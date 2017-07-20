@@ -8,7 +8,8 @@ include_once('main.php');
 <h3>Find Profit by <select id="findmenu" name ="findmenu" onchange = "advancedForm()"> </h3> 
             <option value="none"></option>
 			<option value="profitbyall"> All </option>
-		     <option value="profitbyproduct"> product </option>
+		    <option value="profitbyproduct"> product </option>
+			<option value="profitbydate"> date </option>
 			
 			</select>
 		<form id="alllist" name ="alllist" style="display:none" method="post">	
@@ -21,7 +22,10 @@ include_once('main.php');
 			 <input type="text"  name="product_profit">
 			 <input type="submit" name="product_submit">
 		</form>	
-		
+		<form id="datelist" name ="datelist" style="display:none" method="post">	
+	         <input type="date"  name="date_profit">
+			 <input type="submit" name="date_submit">
+		</form>	
 	
 
 
@@ -31,10 +35,19 @@ function advancedForm(){
 if(selopt=="profitbyproduct"){
 	document.getElementById("productlist").style.display="inline-block";
 	document.getElementById("alllist").style.display="none";
+	document.getElementById("datelist").style.display="none";
 }
 if(selopt=="profitbyall"){
 	document.getElementById("alllist").style.display="inline-block";
 	document.getElementById("productlist").style.display="none";
+	document.getElementById("datelist").style.display="none";
+	
+	
+}
+if(selopt=="profitbydate"){
+	document.getElementById("datelist").style.display="inline-block";
+	document.getElementById("productlist").style.display="none";
+	document.getElementById("alllist").style.display="none";
 	
 	
 }
