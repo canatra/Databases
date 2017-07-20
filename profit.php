@@ -50,23 +50,6 @@ if(selopt=="profitbyall"){
 <?php
 include ('advancedfunctions.php');
 
-
-
-
-if (isset($_POST['advanced_submit'])){
-
-
-	$option= isset($_POST['selection'])?$_POST['selection']:false;
-	
-	if ($option)
-	{
-	 
-	advancedSearch($option);
-	echo "<br><br><br>";	
-
-	}
-}
-
 ?>
 </table>
 
