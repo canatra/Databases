@@ -11,6 +11,7 @@ if(isset($_POST['del_product'])){ //check if form was submitted
     $option = isset($_POST['product'])?$_POST['product']:false;
     if ($option)
        $choice = htmlentities($_POST['product'], ENT_QUOTES, "UTF-8");
+    delete($table, $choice);
 }    
 
 elseif(isset($_POST['del_cat'])){ //check if form was submitted
@@ -18,21 +19,21 @@ elseif(isset($_POST['del_cat'])){ //check if form was submitted
     $option = isset($_POST['cat'])?$_POST['cat']:false;
     if ($option)
        $choice= htmlentities($_POST['cat'], ENT_QUOTES, "UTF-8");
-
+    delete($table, $choice);
 }
 elseif(isset($_POST['del_maker'])){ //check if form was submitted
 	$table = "makers";
 	$option = isset($_POST['maker'])?$_POST['maker']:false;
     	if ($option)
        	   $choice= htmlentities($_POST['maker'], ENT_QUOTES, "UTF-8");
-
-}
+	delete($table, $choice);
+}	
 elseif(isset($_POST['del_customer'])){ //check if form was submitted
 	$table = "Customer";
 	$option = isset($_POST['customer'])?$_POST['customer']:false;
     	if ($option)
        	   $choice= htmlentities($_POST['customer'], ENT_QUOTES, "UTF-8");
-
+	delete($table, $choice);
 
 }
 elseif(isset($_POST['del_employee'])){ //check if form was submitted
@@ -41,7 +42,7 @@ elseif(isset($_POST['del_employee'])){ //check if form was submitted
 	$option = isset($_POST['employee'])?$_POST['employee']:false;
     	if ($option)
        	   $choice= htmlentities($_POST['employee'], ENT_QUOTES, "UTF-8");
-
+	delete($table, $choice);
 }
 elseif(isset($_POST['del_store'])){ //check if form was submitted
 
@@ -49,7 +50,7 @@ elseif(isset($_POST['del_store'])){ //check if form was submitted
 	$option = isset($_POST['store'])?$_POST['store']:false;
     	if ($option)
        	   $choice= htmlentities($_POST['store'], ENT_QUOTES, "UTF-8");
-
+	delete($table, $choice);
 }
 elseif(isset($_POST['del_carries'])){ //check if form was submitted
 
@@ -57,7 +58,7 @@ elseif(isset($_POST['del_carries'])){ //check if form was submitted
 	$option = isset($_POST['carries'])?$_POST['carries']:false;
     	if ($option)
        	   $choice= htmlentities($_POST['carries'], ENT_QUOTES, "UTF-8");
-
+	delete($table, $choice);
 }
 elseif(isset($_POST['del_buy'])){ //check if form was submitted
 
@@ -65,11 +66,11 @@ elseif(isset($_POST['del_buy'])){ //check if form was submitted
 	$option = isset($_POST['bye'])?$_POST['bye']:false;
     	if ($option)
        	   $choice= htmlentities($_POST['bye'], ENT_QUOTES, "UTF-8");
-
+	delete($table, $choice);
 }
 
 
-delete($table, $choice);
+
 
 ?>
 
