@@ -1,3 +1,6 @@
+<!DOCTYPE HTML>
+
+<html>
 <?php
 include_once('functions.php');
 
@@ -135,7 +138,7 @@ if (mysqli_num_rows($result) == 0)
 }
 
 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-$profit = ($row['unit_price'] - $row['unit_cost'])*$row['summation'];
+$profit = round(($row['unit_price'] - $row['unit_cost'])*$row['summation'], 2);
 print '<br><br><br><td> Profit for '.$row['productname'].' is : $'.$profit.'<td><br>';
 
 break;
@@ -158,7 +161,7 @@ print '<tr><td>Product Name </td><td>Product Profit</td></tr>';
 
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-$profit = ($row['unit_price'] - $row['unit_cost'])*$row['summation'];
+$profit = round(($row['unit_price'] - $row['unit_cost'])*$row['summation'],2);
 $sumofprofit += $profit;
 
 print '<tr><td>'.$row['productname'].'</td><td> $'.$profit.'</td></tr>';
@@ -190,7 +193,7 @@ print '<tr><td>Product Name </td><td>Product Profit</td></tr>';
 
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-$profit = ($row['unit_price'] - $row['unit_cost'])*$row['summation'];
+$profit = round(($row['unit_price'] - $row['unit_cost'])*$row['summation'],2);
 $sumofprofit += $profit;
 
 print '<tr><td>'.$row['productname'].'</td><td> $'.$profit.'</td></tr>';
@@ -220,7 +223,7 @@ print '<tr><td>'.$_POST['date_profit'].'</td><td>Product Name </td><td>Product P
 
 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-$profit = ($row['unit_price'] - $row['unit_cost'])*$row['summation'];
+$profit = round(($row['unit_price'] - $row['unit_cost'])*$row['summation'], 2);
 $sumofprofit += $profit;
 
 print '<tr><td>'.$row['Date'].'</td><td>'.$row['productname'].'</td><td> $'.$profit.'</td></tr>';
@@ -251,3 +254,4 @@ mysqli_close($conn);
 
 
 ?>
+</html>
