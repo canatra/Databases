@@ -57,7 +57,7 @@ if(selopt=="profitbydate"){
 
 <body>
 
-<table>
+
 <?php
 include ('advancedfunctions.php');
 if (isset($_POST['product_submit'])){
@@ -77,7 +77,7 @@ elseif (isset($_POST['date_submit'])){
 }
 
 ?>
-</table>
+
 
 
 
