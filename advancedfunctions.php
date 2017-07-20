@@ -169,7 +169,38 @@ print '<tr><td>'.$row['productname'].'</td><td> $'.$profit.'</td></tr>';
 print '<tr><td colspan="2"> Total Product Profit is: $'.$sumofprofit.'</td></tr>';
 
 break;
-	     
+
+case "profitbydate":
+
+$profitbyday = "select product.pid, productname, sum(buy.quantity) as 'summation', unit_cost, unit_price from product, buy where product.pid = buy.pid and buy.date = '".$_POST['date_profit']."' group by buy.pid";
+
+echo $profitbyday. '<br>';
+$result = mysqli_query($conn, $profitbyday);
+
+if (mysqli_num_rows($result) == 0)
+{
+  exit ("could not calculate profit");	
+}
+
+$sumofprofit = 0;
+echo '<br><br><br>';
+print '<th colspan="2"> Profit on '.$_POST['date_profit'].'</th>';
+print '<tr><td>Product Name </td><td>Product Profit</td></tr>';
+
+while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+
+$profit = ($row['unit_price'] - $row['unit_cost'])*$row['summation'];
+$sumofprofit += $profit;
+
+print '<tr><td>'.$row['productname'].'</td><td> $'.$profit.'</td></tr>';
+
+}//end of while loop
+
+
+print '<tr><td colspan="2"> Total Product Profit for '.$_POST['date_profit'].' is: $'.$sumofprofit.'</td></tr>';
+
+
+break;
 
 }
 

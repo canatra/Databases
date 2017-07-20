@@ -60,23 +60,22 @@ if(selopt=="profitbydate"){
 <table>
 <?php
 include ('advancedfunctions.php');
-
-
 if (isset($_POST['product_submit'])){
 	$option ="profitbyproduct";
 	advancedSearch($option);
-
 	
 }
-
 elseif (isset($_POST['all_submit'])){
    
    $option ="profitbyall";
 	advancedSearch($option);
-
-
+}
+elseif (isset($_POST['date_submit'])){
+  $option ="profitbydate";
+	advancedSearch($option);
 
 }
+
 ?>
 </table>
 
@@ -84,3 +83,4 @@ elseif (isset($_POST['all_submit'])){
 
 </body>
 </html>
+
