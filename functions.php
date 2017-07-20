@@ -36,14 +36,20 @@ function insert($table){
 		$pid = "SELECT pid,quantity FROM product where productname ='".$_POST['productname']."'";
 		$result2 = mysqli_query($conn, $pid);
 		$pidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);			    
-
+		
 		if ( !empty($pidrow))//product already exists in the table
 		{
 		
 		$_POST['pid'] = $pidrow['pid'];	
+		carries($pidrow['pid'], $_POST['store'], $conn, $_POST['quantity']);		echo $_POST['exp_date'];
+		 if (!empty($_POST['exp_date']))
+		addexpiration($conn, $_POST['quantity'], $_POST['exp_date'], $pidrow['pid']);
 		$_POST['quantity'] += $pidrow['quantity'];
-		mysqli_close($conn);	
+		
+		
 		update($table);
+		
+
 		
 		}else{ //new product
  
@@ -64,13 +70,12 @@ function insert($table){
 		   $pname = $_POST['productname'];
 
 		   $prod = "INSERT INTO product(productname, unit_cost, quantity, min_threshold, unit_price, cid) VALUES ('".$pname."', {$_POST['unit_cost']}, {$_POST['quantity']}, {$_POST['min_threshold']}, {$_POST['unit_price']}, {$catrow['cid']})";
-		   
+
 		 
 		   if ( mysqli_query($conn, $prod)){
-		   echo "product insert Success!" ;	       
-		   }else
-			exit("unable to insert");
-	
+		   echo "product insert Success!" ;
+		  
+		   
 		$maker = $_POST['maker'];	
 		$mid = "SELECT mid FROM makers where Manufacturer ='".$maker."'";
 		
@@ -101,20 +106,33 @@ function insert($table){
    		if (mysqli_query($conn, $makes)){
 		   echo "<br>";
 			 }//if(mysli_query($conn, $mid))			 
+		
+			 
 
-
-		 if (!empty($_POST['expdate'])){
-
-		 $expires = "INSERT INTO Expires(pid, exp_date, quantity) VALUES (".$pidrow['pid'].", '". $_POST['expdate']."', {$_POST['quantity']})";
+		 if (!empty($_POST['exp_date'])){
+		addexpiration($conn, $_POST['quantity'], $_POST['exp_date'], $pidrow['pid']);    
+		 }
+/*		 $expires = "INSERT INTO Expires(pid, exp_date, quantity) VALUES (".$pidrow['pid'].", '". $_POST['expdate']."', {$_POST['quantity']})";
 	 	
 		if (mysqli_query($conn, $expires)){
 		
 		   echo "<br>";
 			 }//if(mysli_query($conn, $expires))			 
 			 else echo "Did not add expiration date";
-				 } 
-		 }
-		}//if($table == "product")
+			}	 
+
+*/
+		
+		 carries($pidrow['pid'], $_POST['store'], $conn, $_POST['quantity']);	       
+		 }else
+			exit("unable to insert");
+		if($conn)
+     	mysqli_close($conn);
+
+}
+
+}//if($table == "product")
+
 		
 //------------------------insert into category table------------------------------------	
 		elseif($table == "category"){
@@ -123,7 +141,10 @@ function insert($table){
 		   echo "category insert Success!" ;	       
 		   }else
 			echo "unable to insert";
+	if($conn)
+     	mysqli_close($conn);
 			
+
 		}//elseif ($table == "category")
 		
 //--------------------------insert into maker table----------------------------------------
@@ -137,6 +158,10 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 		   echo "Manufacturer insert Success!" ;	       
 		   }else
 			echo "unable to insert";
+	if($conn)
+     	mysqli_close($conn);
+
+
 		             }
 
 //-------------------------insert into customer table---------------------------
@@ -148,6 +173,9 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 		   echo "customer insert Success!" ;	       
 		   }else
 			echo "unable to insert";
+	if($conn)
+     	mysqli_close($conn);
+
 }			
 //----------------------insert into Buy------------------------------------
 	   elseif ($table == "buy"){
@@ -194,6 +222,11 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 		   
 		   }else
 			echo "unable to insert";
+
+	if($conn)
+     	mysqli_close($conn);
+
+
 			}
 
 
@@ -221,6 +254,8 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 		   }else
 			echo "unable to insert";
   
+	if($conn)
+     	mysqli_close($conn);
 
   }
 	   
@@ -238,26 +273,19 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 			echo "unable to insert";
 
 
+	if($conn)
+     	mysqli_close($conn);
 
 }
 
+}	//function insert
+
+
 //----------------------------Add to Carries table--------------------
 
-elseif ($table == "carries") {
-
-     $pname = $_POST["pname"];
-     $pidQuery = "select pid from product where productname = '".$pname."'";
-
-       $result1 = mysqli_query($conn, $pidQuery);
-
-       if (mysqli_num_rows($result1)== 0){
-        exit("Product does not exist");
-	}
-
-   	$pidrow = mysqli_fetch_array($result1, MYSQLI_ASSOC);
-	$store = $_POST["store"];
+function carries($pid, $store, $conn, $quantity){
+    		
        $storeidQuery = "select storeid from Store where storename = '".$store."'";
-
 
        $result2 = mysqli_query($conn, $storeidQuery);
 
@@ -267,22 +295,47 @@ elseif ($table == "carries") {
 
    	$sidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);
 
+	$exists = "select quantity from carries where pid = ".$pid;
+	$res = mysqli_query($conn, $exists);
+	
+	if (mysqli_num_rows($res) != 0)
+	{
+	$orig_quantity = mysqli_fetch_array($res, MYSQLI_ASSOC);
+	$newquantity = $_POST['quantity'] + $orig_quantity['quantity'];
+	$carries = "update carries set quantity = ".$newquantity. " where pid = ".$pid;
 
+	
+	}else{
 
-     $carries = "INSERT INTO carries(pid, storeid) VALUES (".$pidrow['pid']. ",".$sidrow['storeid'].")";
-     
+	
+     $carries = "INSERT INTO carries(pid, storeid, quantity) VALUES (".$pid. ",".$sidrow['storeid'].",".$quantity.")";
+     }
+
    		if ( mysqli_query($conn, $carries)){
-		   echo "Product ".$pname. " added to ".$store."!" ;	       
+		   echo "Product added to ".$store."! <br>" ;	       
+		
 		   }else
-			echo "unable to insert";
+			echo "unable to insert into carries <br>";
 
-     mysqli_close($conn);
+			
 }
 
-	
 
-	}//function insert
+//------------------------------insert into expiration table---------------------------------
+function addexpiration($conn, $quantity, $exp_date, $pid){
+
+		 $expires = "INSERT INTO Expires(pid, exp_date, quantity) VALUES (".$pid.", '". $exp_date."', {$quantity})";
 	
+		if (mysqli_query($conn, $expires)){
+		
+		   echo "Added expiration date <br>";
+			 }//if(mysli_query($conn, $expires))			 
+			 else echo "Did not add expiration date";
+}	 
+
+
+
+
 
 //---------------------Update function--------------------------
 
@@ -308,7 +361,7 @@ switch($table){
 		   || $key == "quantity" || $key == "min_threshold")
 		   $update .= $key ."= ".$val; 
 		   
-		   elseif ($key == "cat" || $key == "maker" || $key == "exp_date") 
+		   elseif ($key == "cat" || $key == "maker" || $key == "exp_date" || $key == "store") 
 		   	  continue;
 		   
 		   else

@@ -9,35 +9,38 @@
             <option value="buy"> Transaction </option>
 			<option value="employee"> Employee </option>
 			<option value="store"> Store </option>
-			<option value="carries"> Carries </option>
+			
             </select>
 
 <!-- FORM PRODUCT -->  
 <form name="product" id="product" style="display:none" action="" method="post";>
 <h2>Add a New Product</h2>
 <ul>
-<li>product name: <input type="text" name="pname"></li>
+<li>product name: <input type="text" name="productname"></li>
 </ul>
 <ul>
-<li>expiration date: <input type="date"  name="expdate" ></li>
+<li>expiration date: <input type="date"  name="exp_date" ></li>
 </ul>
 <ul>
-<li>cost per unit: <input type="text" name="cost"></li>
+<li>cost per unit: <input type="text" name="unit_cost"></li>
 </ul>
 <ul>
-<li>minimum quantity: <input type="text" name="threshold""></li>
+<li>minimum quantity: <input type="text" name="min_threshold""></li>
 </ul>
 <ul>
 <li>quantity: <input type="text" name="quantity"></li>
 </ul>
 <ul>
-<li>price per unit: <input type="text" name="price"></li>
+<li>price per unit: <input type="text" name="unit_price"></li>
 </ul>
 <ul>
 <li>category: <input type="text" name="cat" ></li>
 </ul>
 <ul>
 <li>Manufacturer: <input type="text" name="maker"></li>
+</ul>
+<ul>
+<li>Store name: <input type="text" name="store"></li>
 </ul>
 <p><input type="submit" name="product_submit"/></p>
 </form>
@@ -95,7 +98,7 @@
 <form name="Transaction" id="buy" style="display:none" action="" method="post";>
 <h2>Add a New Transaction</h2>
 <ul>
-<li>product: <input type="text" name="product"></li>
+<li>product id: <input type="text" name="product"></li>
 </ul>    <!--search the product table first to get the pid -->
 <ul>
 <li>quantity Sold: <input type="text" name="quantity"></li>
@@ -119,7 +122,7 @@
 <li>store name: <input type="text" name="storename"></li>
 </ul>	  	
 <ul>
-<li>job type (hourly or salary): <input type="text" name="job_type"></li>
+<li>job title (Manager, Cashier or Bag boy): <input type="text" name="job_type"></li>
 </ul>
 <ul>
 <li>hours per week: <input type="text" name="hoursperweek"></li>
@@ -157,14 +160,3 @@
 <p><input type="submit" name="store_submit"/></p>
 </form>
 
-<!-- CARRIES FORM -->
-<form name="carries" id="carries" style="display:none" action="" method="post";>
-<h2>Carries</h2>
-<ul>
-<li>Enter the product: <input type="text" name="pname"></li>
-</ul>
-<ul>
-<li>Enter the Store that carries the product: <input type="text" name="store"></li>
-</ul>
-<p><input type="submit" name="carries_submit"/></p>
-</form>
