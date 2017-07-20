@@ -5,14 +5,18 @@ session_start();
 <html>
 <head>
 <style>
+
 body {
-	//background-color: lightblue;
+	
    background-image: url("cutie4.jpg");
    background-size:55% 55%
    background-repeat: no-repeat;
    
 }
- ul
+
+
+
+ul
  {
     list-style-type:none;
     margin:0;
@@ -37,6 +41,7 @@ li {
 	text-transform:uppercase;
 	}
 h1 {
+	color:DarkTurquoise;
 	font-family: Arial, Helvetica, sans-serif;
 }
 .dropdown {
@@ -51,7 +56,7 @@ h1 {
 	
 	}
 .dropdown-content a:hover {
-	color: black}
+	color: DarkTurquoise }
 	
 .dropdown:hover .dropdown-content {
 	
@@ -87,6 +92,15 @@ td {
     padding: 15px;
 }
 
+
+  div{
+  color: white;
+  background-color:LightBlue; 
+  font-family: serif;
+  font-size: 100%;
+  }
+
+
 </style>
 </head>
 
@@ -118,7 +132,7 @@ td {
   </div>
 </div></li>
 
-<li><a href="#about">About</a></li>
+<li><a href = "about.php">About</a></li>
 
 </ul>
 
