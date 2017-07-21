@@ -37,10 +37,30 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
 	    print '<tr>';
 }
 	    
-	    	    foreach ($row as $key => $val){
+	    foreach ($row as $key => $val){
 	    if (!empty($val))    
-	   	 print  '<td>'.$val.'</td>';
-	
+    {
+
+    if ($key == 'Cost' || $key == 'Price' || $key == 'Earns'){
+                    $val = round($val, 2); 
+    print '<td> $'.$val.'</td>';
+
+    }
+    elseif ($key == 'Website')
+    {
+    print '<td>';
+      echo "<a href ='".$val."'>".$val."</a>";
+		       print '</td>';
+
+    }
+    elseif ($key == 'Email'){
+    print '<td>';
+      echo "<a href='mailto:".$val."' target= '_top'>".$val."</a>";
+      print '</td>';
+}
+    else
+               print  '<td>'.$val.'</td>';
+          }
 		 }
 	    print '</tr>';
 
