@@ -12,6 +12,7 @@ include_once('main.php');
 			<option value="transaction">Transaction</option>
 			<option value="all">All</option>
 			</select>
+			
 		<form id="wholist" name ="wholist" style="display:none" method="post">	
 	   	<select name="selection">  
             <option value="makes">makes</option>
@@ -48,8 +49,8 @@ include_once('main.php');
 		<form id="alllist" name ="alllist" style="display:none" method="post" >	
 	        <select name ="selection">  
             		<option value="products"> products </option>
-			<!--<option value="prod_sold">products sold</option>
-			--></select>
+			<option value="prod_sold">products sold</option>
+			</select>
 			in
 			<input type="text"  name="advanced_keyword">
 			 <input type="submit" name="advanced_submit">
@@ -64,27 +65,27 @@ if(selopt=="who"){
 	document.getElementById("wholist").style.display="inline-block";
 	document.getElementById("whatlist").style.display="none";
 	document.getElementById("transactionlist").style.display="none";
-	document.getElementById("all").style.display="none";
+	document.getElementById("alllist").style.display="none";
 }
-if(selopt=="what"){
+else if(selopt=="what"){
 	document.getElementById("whatlist").style.display="inline-block";
 	document.getElementById("wholist").style.display="none";
 	document.getElementById("transactionlist").style.display="none";
 	document.getElementById("alllist").style.display="none";
 }
-if(selopt=="transaction"){
+else if(selopt=="transaction"){
 	document.getElementById("transactionlist").style.display="inline-block";
 	document.getElementById("wholist").style.display="none";
 	document.getElementById("whatlist").style.display="none";
 	document.getElementById("alllist").style.display="none";
 }
 
-if(selopt=="all"){
-	document.getElementById("alllist").style.display="inline-block";
+else if(selopt=="all"){
+	
 	document.getElementById("transactionlist").style.display="none";
 	document.getElementById("wholist").style.display="none";
 	document.getElementById("whatlist").style.display="none";
-	
+	document.getElementById("alllist").style.display="inline-block";
 }
 }
 </script>

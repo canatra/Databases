@@ -144,6 +144,16 @@ function advancedSearch($option){
 
 	     break;
 
+	     case "prod_sold":
+	     $advancedsearch = "select pid, productname as 'Product', quantity as 'Quantity', catname as 'Category', Aisle from Category, (select product.pid, productname, carriedin.quantity, cid from product, (select pid, quantity from carries, Store where carries.storeid = Store.storeid and storename = '".$_POST['advanced_keyword']."') as carriedin where carriedin.pid = product.pid) as prod where prod.cid = Category.cid";
+
+
+	       $title = "Products sold in ".$_POST['advanced_keyword'].":";
+	      printTable($conn, $advancedsearch, $title);
+
+
+	
+break;
 //-------------------------profit calculations---------------------
 
 case "profitbyproduct":
@@ -176,6 +186,7 @@ if (mysqli_num_rows($result) == 0)
 
 $sumofprofit = 0;
 echo '<br><br><br>';
+print '<table>';
 print '<th colspan="2"> Profit </th>';
 print '<tr><td>Product Name </td><td>Product Profit</td></tr>';
 
@@ -190,7 +201,7 @@ print '<tr><td>'.$row['productname'].'</td><td> $'.$profit.'</td></tr>';
 
 
 print '<tr><td colspan="2"> Total Product Profit is: $'.$sumofprofit.'</td></tr>';
-
+print '</table>';
 break;
 
 case "profitbydate":
@@ -202,9 +213,9 @@ $result = mysqli_query($conn, $profitbyday);
 
 if (mysqli_num_rows($result) == 0)
 {
-  exit ("could not calculate profit");	
+  echo "could not calculate profit";	
 }
-
+else{
 $sumofprofit = 0;
 echo '<br><br><br>';
 print '<table>';
@@ -223,7 +234,7 @@ print '<tr><td>'.$row['productname'].'</td><td> $'.$profit.'</td></tr>';
 
 print '<tr><td colspan="2"> Total Product Profit for '.$_POST['date_profit'].' is: $'.$sumofprofit.'</td></tr>';
 print '</table>';
-
+}
 
 $profitbefore ="select ANY_VALUE(date) as 'Date', product.pid, productname, sum(buy.quantity) as 'summation', unit_cost, unit_price from product, buy where product.pid = buy.pid and buy.date <= '".$_POST['date_profit']."' group by buy.pid";
 
@@ -258,6 +269,43 @@ print '</table>';
 
 
 break;
+
+case "profitbystore":
+
+$profitstore = "select ANY_VALUE(date) as Date, productname, unit_cost, unit_price, sum(buyfrom.quantity)as 'summation' from product, (select ANY_VALUE(date) as date, buy.pid, quantity from buy, Store where Store.storeid = buy.storeid and storename = '".$_POST['store_profit']."') as buyfrom where product.pid = buyfrom.pid group by buyfrom.pid";
+
+
+$result = mysqli_query($conn, $profitstore);
+
+if (mysqli_num_rows($result) == 0)
+{
+  exit ("could not calculate profit");	
+}
+
+$sumofprofit = 0;
+echo '<br><br><br>';
+print '<table>';
+print '<th colspan="3"> Profit from '.$_POST['store_profit'].'</th>';
+print '<tr><td>Date</td><td>Product Name </td><td>Product Profit</td></tr>';
+
+while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+
+$profit = round(($row['unit_price'] - $row['unit_cost'])*$row['summation'], 2);
+$sumofprofit += $profit;
+
+print '<tr><td>'.$row['Date'].'</td><td>'.$row['productname'].'</td><td> $'.$profit.'</td></tr>';
+
+}//end of while loop
+
+
+print '<tr><td colspan="3"> Total Product Profit for '.$_POST['date_profit'].' is: $'.$sumofprofit.'</td></tr>';
+print '</table>';
+
+
+break;
+
+
+
 
 }
 

@@ -189,11 +189,36 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 
        $result2 = mysqli_query($conn, $storeidQuery);
 
-       if (mysqli_num_rows($result2)== 0){
+//check if store exists 
+      if (mysqli_num_rows($result2)== 0){
         exit("store does not exist");
 	}
 
    	$sidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+
+//check if product exists in store & deduct from quantity if it does exist
+
+	$prodQuery = "select quantity from carries where pid = ". $pidrow." and storeid = ".$sidrow['storeid'];
+
+	$result = mysqli_query($conn, $prodQuery);
+
+	if (mysqli_num_rows($result) == 0){
+ 	exit("Product does not carried at this store <br>");
+}
+
+$prodrow =  mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+$quantity = $prodrow['quantity'] - $_POST['quantity'];
+
+	  $carriesUpdate = "update carries set quantity = ". $quantity. " where pid = ".$pidrow. " and storeid = ". $sidrow['storeid'];
+	  
+	  $result = mysqli_query($conn, $carriesUpdate);
+
+	if (!$result){
+	
+ 	exit("Product could not be updated in carries table  <br>");
+}
+	  
 
        $cidQuery = "select card_num from Customer where customername = '".$_POST['customer_name']."'";
       
@@ -238,7 +263,7 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
   
 
        $storeidQuery = "select storeid from Store where storename = '".$_POST['storename']."'";
-
+       
        $result2 = mysqli_query($conn, $storeidQuery);
 
        if (mysqli_num_rows($result2)== 0){
@@ -246,7 +271,7 @@ $maker = "INSERT INTO makers(Manufacturer, Address,phone, Website) VALUES ('" . 
 	}
 	$sidrow = mysqli_fetch_array($result2, MYSQLI_ASSOC);
   
-	$employee = "INSERT INTO Employee(employeename, storeid, job_type, hoursperweek, wages, phone, email, SSN, totalhours) VALUES ('". $_POST['ename']."',".$sidrow['storeid'].",'".$_POST['job_type']."',".$_POST['hoursperweek'].",".$_POST['wages'].",'".$_POST['phone']."','".$_POST['email']."','".$_POST['ssn']."', NULL)";
+	$employee = "INSERT INTO Employee(employeename, storeid, job_type, hoursperweek, wages, phone, email, SSN) VALUES ('". $_POST['ename']."',".$sidrow['storeid'].",'".$_POST['job_type']."',".$_POST['hoursperweek'].",".$_POST['wages'].",'".$_POST['phone']."','".$_POST['email']."','".$_POST['ssn']."')";
 
 
    		if ( mysqli_query($conn, $employee)){
@@ -616,7 +641,7 @@ function search($table){
 	       break;
 	     
 	       case "carries":
-	       $title ="Product Found";
+	       $title ="Product ";
 	       $search = "select storename as 'Store', productname as 'Product', quantity as 'Quantity' from Store, (select productname, storeid, carries.quantity from carries, product where carries.pid = product.pid and carries.pid = {$query}) as prodcarry where prodcarry.storeid = Store.storeid";
 	       
 
