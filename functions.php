@@ -8,8 +8,8 @@ function connection(){
 if(!isset($conn)){
 
 	 $DB_SERVER = 'localhost';
-	 $DB_USER = 'root';
-	 $DB_PASSWORD = "3624Leno";//{$_POST['pwd']}");
+	 $DB_USER = '';
+	 $DB_PASSWORD = "";//{$_POST['pwd']}");
 	 $_SESSION["DB"]= 'Databases_Project';
 
 	 
