@@ -1,0 +1,31 @@
+emplid,employeename,storeid,job_type,hoursperweek,wages,phone,email,SSN,totalhours
+1,Mickey,1,salaried,40,NULL,444-333-3222,clubhouse@mickeymouse.com,555-55-5555,10
+2,Donald,1,hourly,20,8.1,444-333-3221,onaldd@disney.com,555-55-5554,5
+3,Minnie,1,hourly,20,9.1,444-333-3220,minie@disney.com,555-55-5553,15
+4,Julius,1,hourly,20,8.1,444-333-3219,Julius@disney.com,555-55-5552,15
+5,Winnie,1,hourly,20,9.1,444-333-3218,Winnie@disney.com,555-55-5551,20
+6,Oswald,1,hourly,20,10.1,444-333-3217,Oswald@disney.com,555-55-5550,15
+7,Pluto,1,hourly,20,8.1,444-333-3216,Pluto@disney.com,555-55-5549,10
+8,Pete,1,salaried,40,NULL,444-333-3215,Pete@disney.com,555-55-5548,15
+9,Louie,1,hourly,20,8.1,444-333-3214,Louie@disney.com,555-55-5547,5
+10,Clarabelle,1,hourly,20,8.1,444-333-3213,Clarabelle@disney.com,555-55-5546,5
+11,Max,2,hourly,20,8.1,444-333-3212,Max@disney.com,555-55-5545,10
+12,Goofy,2,salaried,40,NULL,444-333-3211,Goofy@disney.com,555-55-5544,20
+13,Horace,2,hourly,20,8.1,444-333-3210,Horace@disney.com,555-55-5543,5
+14,Humphrey,2,hourly,20,8.1,444-333-3209,Humphrey@disney.com,555-55-5542,5
+15,Sylvester,2,hourly,20,8.1,444-333-3208,Sylvester@disney.com,555-55-5541,10
+16,Figaro,2,hourly,20,8.1,444-333-3207,Figaro@disney.com,555-55-5540,10
+17,Bell,2,hourly,20,8.1,444-333-3206,Bell@disney.com,555-55-5539,15
+18,Wendy,2,salaried,40,NULL,444-333-3205,Wendy@disney.com,555-55-5538,5
+19,John,2,hourly,20,8.1,444-333-3204,John@disney.com,555-55-5537,15
+20,Michael,2,hourly,20,8.1,444-333-3203,Michael@disney.com,555-55-5536,10
+21,Captain Hook,3,salaried,40,NULL,444-333-3202,Captain Hook@disney.com,555-55-5535,25
+22,Peter Pan,3,hourly,20,8.1,444-333-3201,Peter Pan@disney.com,555-55-5534,5
+23,Alice,3,hourly,20,9.1,444-333-3200,Alice@disney.com,555-55-5533,10
+24,Kronk,3,salaried,40,NULL,444-333-3199,Kronk@disney.com,555-55-5532,10
+25,Gus,3,hourly,20,9.1,444-333-3198,Gus@disney.com,555-55-5531,5
+26,Cindy,3,hourly,20,8.1,444-333-3197,Cindy@disney.com,555-55-5530,5
+27,Anastasia,3,hourly,20,9.1,444-333-3196,Anastasia@disney.com,555-55-5529,10
+28,Rapunzel,3,hourly,20,8.2,444-333-3195,Rapunzel@disney.com,555-55-5528,10
+29,Merida,3,hourly,20,8.1,444-333-3194,Merida@disney.com,555-55-5527,15
+30,Flynn,3,hourly,20,8.1,444-333-3193,Flynn@disney.com,555-55-5526,15
