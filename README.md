@@ -1,4 +1,4 @@
-# Databases
+# Grocery-Store-Inventory
 ##### Contributors: Joy Bushnell, XiaoXiao Gan
 
 
